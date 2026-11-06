@@ -1,18 +1,12 @@
-Crypto / Asset Signal Lab - Live 2-minute research dashboard
+CRYPTO MULTI-SIGNAL LAB — GITHUB PAGES
 
-Deploy: upload index.html to the root of your GitHub Pages repository.
-No build, backend, API key or screenshot required.
+1. Upload index.html to the root of your GitHub repository.
+2. Settings > Pages > Deploy from branch > main > /(root).
+3. Open your GitHub Pages URL.
 
-Uses Binance Spot public market data WebSocket and public 1m candle history.
-Two-minute candles are aggregated from pairs of UTC-aligned 1m candles.
-The next window bias is calculated using COMPLETED candles at each 2m boundary.
-
-IMPORTANT:
-- Binance exchange prices are NOT Binomo IDX/OTC prices.
-- UP/DOWN is a heuristic technical-analysis bias, NOT a trade recommendation.
-- Scores are indicator evidence points, NOT predicted accuracy or win probabilities.
-- Browser must stay open; connection requires network access to Binance.
-- Binance endpoints may be unavailable or blocked in some regions.
-- No orders are placed and no trading account is connected.
-
-Official API docs: https://github.com/binance/binance-spot-api-docs
+Uses public Binance Spot USDT pairs: BTC, ETH, SOL, BNB, XRP, DOGE, ADA, AVAX, LINK, LTC, TRX, DOT.
+Data: Binance public REST 1-minute klines + public WebSocket kline updates. No backend or API keys.
+Aggregates 1-minute candles into UTC-aligned 2-minute candles. The equal-weighted composite is synthetic and normalized to 100; it is NOT Binomo Crypto IDX.
+At least 8 current pairs are required for a combined classification. A WAIT classification is normal when data is insufficient or mixed.
+Indicator evidence is not a probability or a trading instruction. No orders are placed.
+Some regions/networks block Binance public endpoints. If the page says stale, inspect the browser console and your network access.
