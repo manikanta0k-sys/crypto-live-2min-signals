@@ -1,1 +1,1 @@
-Upload index.html to your GitHub Pages repository root. Screenshot upload and crop are local. Extracted OHLC and times are approximate/synthetic, not actual Binomo data. Verified CSV is required for meaningful backtesting. No live Binomo feed or trading connection.
+Fix: synthetic and screenshot signals display WAIT instead of misleading frozen UP/DOWN. CSV research signal becomes WAIT after 60 seconds without new data. Countdown is a clock, not live broker feed. Replace repository root index.html.

@@ -4,7 +4,7 @@
 #shotCanvas{width:100%;height:auto;max-height:430px;object-fit:contain;touch-action:none;cursor:crosshair;border:1px solid #38506c}
 .shotrow{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
 @media(max-width:800px){.shotrow{grid-template-columns:1fr}}
-</style></head><body><header><div><h1>◇ CRYPTO IDX <span style="color:#60a5fa">RESEARCH LAB</span></h1><small>1-minute technical analysis · user-supplied IDX candles · walk-forward demo backtesting</small></div><div class="pill" id="status">● AWAITING IDX DATA</div></header><main>
+</style></head><body><header><div><h1>◇ CRYPTO IDX <span style="color:#60a5fa">RESEARCH LAB</span></h1><small>1-minute historical research · static screenshots or CSV · no live Binomo connection</small></div><div class="pill" id="status">● AWAITING IDX DATA</div></header><main>
 <div class="warning"><b>Data integrity:</b> Actual Binomo Crypto IDX data is available here only when you import authorized historical OHLC records. No official public live IDX feed has been verified. Binance comparison is a separate instrument and must not be represented as Binomo quotes. No automatic trading.</div>
 <div class="card" id="screenshotPanel"><h2>📷 Screenshot Upload &amp; Chart Crop</h2>
 <p class="mut">Upload a Binomo Crypto IDX screenshot. Drag a rectangle around the candle chart only. This experimental extractor estimates <b>relative candle shapes</b> from green/red pixels; it cannot recover exact prices or timestamps. Review results before research use.</p>
@@ -108,4 +108,34 @@ const originalBacktest=$('backtest').onclick;
 $('backtest').onclick=()=>{if(shotIsEstimated){$('btinfo').textContent='Backtesting disabled for screenshot-derived relative prices and invented timestamps. Import verified 1-minute OHLC CSV instead.';return}originalBacktest()};
 const originalLoad=load;
 load=function(txt){shotIsEstimated=false;shotMode=false;originalLoad(txt)};
+
+// Never present a frozen historical/synthetic screenshot signal as a live update.
+let signalInputType='none',signalUpdatedAt=0;
+const previousRender=render;
+render=function(){previousRender();signalUpdatedAt=Date.now();refreshSignalFreshness()};
+function refreshSignalFreshness(){
+ const label=$('status'),direction=$('direction'),quality=$('quality');
+ if(!data.length){label.textContent='● AWAITING DATA';direction.textContent='WAIT';direction.className='big wait';return}
+ const elapsed=Math.floor((Date.now()-signalUpdatedAt)/1000);
+ if(signalInputType==='synthetic'){
+   label.textContent='● SYNTHETIC TEST DATA';direction.textContent='WAIT';direction.className='big wait';
+   quality.textContent='Synthetic test data only. Direction intentionally suppressed; not a live Binomo signal.';
+ }else if(signalInputType==='screenshot'){
+   label.textContent='● STATIC SCREENSHOT';direction.textContent='WAIT';direction.className='big wait';
+   quality.textContent='Screenshot is static and estimated. Upload a new screenshot to refresh the research indicators; no live Binomo feed.';
+ }else{
+   label.textContent='● HISTORICAL CSV · '+elapsed+'s since analysis';
+   if(elapsed>=60){direction.textContent='WAIT';direction.className='big wait';quality.textContent='Analysis is older than 60 seconds. Import new completed 1-minute candles to recalculate; historical data is NOT live.'}
+   else quality.textContent='Historical CSV analysis, '+elapsed+' seconds since calculation. Not live broker data.';
+ }
+}
+const previousLoad=load;
+load=function(txt){signalInputType='csv';previousLoad(txt);if(data.length){signalUpdatedAt=Date.now();refreshSignalFreshness()}};
+const oldExample=$('example').onclick;
+$('example').onclick=()=>{oldExample();signalInputType='synthetic';refreshSignalFreshness()};
+const oldExtract=$('shotAnalyze').onclick;
+$('shotAnalyze').onclick=()=>{oldExtract();if(shotIsEstimated){signalInputType='screenshot';signalUpdatedAt=Date.now();refreshSignalFreshness()}};
+const oldClear=$('clear').onclick;
+$('clear').onclick=()=>{oldClear();signalInputType='none';refreshSignalFreshness()};
+setInterval(refreshSignalFreshness,1000);
 </script></body></html>
