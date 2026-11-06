@@ -3,8 +3,18 @@
 <style>
 :root{--bg:#0b0f19;--panel:#111827;--line:#263449;--muted:#9caec7;--green:#10b981;--red:#f43f5e;--blue:#3b82f6;--violet:#8b5cf6;--text:#eaf2ff}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#162849 0,transparent 45%),var(--bg);color:var(--text);font:14px system-ui,-apple-system,"Segoe UI",sans-serif}header{position:sticky;top:0;z-index:5;background:#0b0f19e9;backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:15px max(16px,calc((100vw - 1250px)/2))}.brand{font-weight:900;letter-spacing:.4px;font-size:18px}.brand b{color:#60a5fa}small,.sub,.muted{color:var(--muted)}main{max-width:1250px;margin:auto;padding:18px 14px 60px}.top{display:flex;justify-content:space-between;gap:10px;align-items:center}.tag{border:1px solid #365371;border-radius:30px;padding:7px 10px;background:#132339;color:#bcd4f6;font-size:11px;font-weight:800}.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:14px}.card{background:linear-gradient(155deg,#152137ec,#101826ef);border:1px solid #2a3a54;border-radius:19px;padding:17px;box-shadow:0 12px 35px #0002;min-width:0;margin-bottom:14px}.card h2{margin:0 0 13px;font-size:15px}.intro{border-left:3px solid #60a5fa;padding:10px 12px;background:#12223a;border-radius:8px;margin-bottom:14px;line-height:1.5}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.btn,button{background:linear-gradient(110deg,#2563eb,#7c3aed);border:0;border-radius:11px;color:white;padding:12px 15px;font-weight:750;cursor:pointer;min-height:43px}button.secondary{background:#25354e;border:1px solid #40506a}button:disabled{opacity:.45;cursor:not-allowed}input[type=file],textarea{width:100%;background:#0c1627;border:1px solid #354762;border-radius:11px;color:var(--text);padding:12px;font:inherit}input[type=file]{max-width:100%}textarea{min-height:100px;resize:vertical;font-family:ui-monospace,monospace;font-size:11px}label{display:block;margin-bottom:7px;color:#bbcae0;font-weight:650}.canvaswrap{position:relative;background:#090f1c;border:1px solid #31425e;border-radius:13px;overflow:hidden;margin:12px 0;touch-action:none}#imageCanvas{display:block;width:100%;height:auto;touch-action:none;user-select:none}.hint{font-size:12px;line-height:1.5;color:#9fb1ca}.status{padding:11px 13px;background:#0d1d32;border:1px solid #2a4464;border-radius:11px;line-height:1.5;margin:12px 0;white-space:pre-wrap}.status.warn{border-color:#765631;color:#ffce89;background:#30251a}.status.ok{border-color:#17684f;color:#9cf0cf;background:#0c2b26}.big{font-size:clamp(48px,8vw,84px);line-height:1;font-weight:950;letter-spacing:-2px;margin:14px 0}.big.up{color:var(--green);text-shadow:0 0 35px #10b98145}.big.down{color:var(--red);text-shadow:0 0 35px #f43f5e45}.big.wait{color:#a7b5d1}.metricgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{background:#0d192a;border:1px solid #253650;border-radius:12px;padding:12px}.metric strong{display:block;font-size:22px;margin-top:6px;font-variant-numeric:tabular-nums}.meter{height:9px;background:#27354b;border-radius:9px;overflow:hidden;margin:8px 0 12px}.fill{height:100%;width:0%;transition:width .35s}.g{background:var(--green)}.r{background:var(--red)}#plot{width:100%;height:270px;display:block;background:#091321;border-radius:12px}.tablewrap{overflow:auto;max-height:320px}table{border-collapse:collapse;width:100%;font-size:12px;white-space:nowrap}th,td{text-align:right;border-bottom:1px solid #26354b;padding:9px 8px}th:first-child,td:first-child{text-align:left}th{position:sticky;top:0;background:#17243a;color:#abc0db}footer{border-top:1px solid #293c54;color:#9baec9;padding:18px;line-height:1.6}.hidden{display:none}.badge{display:inline-block;padding:5px 8px;border-radius:7px;background:#263a56;color:#c6d9f7;font-size:11px;font-weight:800}.count{color:#8cb6ff;font-size:20px;font-weight:850}::-webkit-scrollbar{height:8px;width:8px}::-webkit-scrollbar-thumb{background:#395476;border-radius:10px}@media(max-width:800px){.grid{grid-template-columns:1fr}header{padding:13px 15px}.brand{font-size:15px}.card{padding:14px;border-radius:15px}main{padding:12px 10px 40px}.top{align-items:flex-start}.metric strong{font-size:19px}#plot{height:220px}button{flex:1}#imageCanvas{min-height:90px}}
+
+.signal-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(118px,.85fr);gap:10px;align-items:center}
+.signal-head .big{font-size:clamp(38px,7vw,68px);margin:10px 0}
+.mini-live{border:1px solid #345071;border-radius:13px;padding:10px;background:#0b1a2c}
+.mini-live .mini-title{font-size:10px;font-weight:850;letter-spacing:.6px;color:#a9c5ee}
+.mini-live .mini-bias{font-size:clamp(22px,5vw,35px);font-weight:950;margin:5px 0}
+.mini-live .mini-meta{font-size:11px;color:#b3c6de;line-height:1.5}
+.mini-live select{max-width:100%;background:#182b43;color:#fff;border:1px solid #3d5573;border-radius:7px;padding:6px;margin-top:7px}
+.mini-live .mini-bias.up{color:#10b981}.mini-live .mini-bias.down{color:#f43f5e}.mini-live .mini-bias.wait{color:#a7b5d1}
+@media(max-width:390px){.signal-head{grid-template-columns:1fr 1fr;gap:7px}.mini-live{padding:8px}}
 </style></head><body>
-<header><div class="top"><div><div class="brand">◇ CRYPTO IDX <b>VISION LAB</b></div><small>Mobile screenshot analysis · 1-minute research</small></div><span class="tag" id="dataBadge">● NO DATA</span></div></header>
+<header><div class="top"><div><div class="brand">◇ CRYPTO IDX <b>VISION LAB</b></div><small>Binomo screenshot analysis + separate live Binance reference</small></div><span class="tag" id="dataBadge">● NO DATA</span></div></header>
 <main>
 <div class="intro"><b>Binomo chart analysis, not a live Binomo feed.</b> Upload a screenshot and select the candles. The app estimates relative candle shapes locally; exact OHLC prices, timestamps and 1-minute spacing cannot be verified from an image. UP/DOWN/WAIT describes indicator bias, not a trade recommendation.</div>
 <div class="grid">
@@ -21,7 +31,7 @@
 <div class="card"><h2>03 · Optional verified OHLC CSV</h2><p class="hint">Only use actual authorized Crypto IDX OHLC history here. Expected columns: time,open,high,low,close. This is optional; you can use screenshot mode without a CSV.</p><input id="csvFile" type="file" accept=".csv,text/csv"><p class="hint">Or paste CSV:</p><textarea id="csvText" placeholder="time,open,high,low,close&#10;2026-11-06T10:00:00Z,100,102,99,101"></textarea><div class="row"><button id="import">Import verified CSV</button><button id="clear" class="secondary">Clear</button></div></div>
 </section>
 <section>
-<div class="card"><h2>Research bias · 1-minute context</h2><span class="badge" id="source">NO DATA</span><div class="big wait" id="bias">WAIT</div><div class="hint" id="reason">Upload a screenshot or verified CSV to begin. WAIT means insufficient or uncertain evidence.</div><div style="margin-top:18px">Bullish indicator agreement <span style="float:right" id="upScore">—</span></div><div class="meter"><div class="fill g" id="upBar"></div></div>Bearish indicator agreement <span style="float:right" id="downScore">—</span><div class="meter"><div class="fill r" id="downBar"></div></div><p class="hint">These are indicator vote counts, not probabilities, win rates or guaranteed outcomes.</p></div>
+<div class="card"><h2>Research bias · 1-minute context</h2><span class="badge" id="source">NO DATA</span><div class="signal-head"><div><div class="big wait" id="bias">WAIT</div><div class="hint" id="idxMiniLabel">BINOMO · SCREENSHOT ONLY</div></div><div class="mini-live" aria-label="Independent live Binance reference"><div class="mini-title">BINANCE · LIVE REFERENCE</div><select id="binancePair" aria-label="Binance trading pair"><option value="BTCUSDT">BTC / USDT</option><option value="ETHUSDT">ETH / USDT</option><option value="SOLUSDT">SOL / USDT</option></select><div class="mini-bias wait" id="binanceBias">WAIT</div><div class="mini-meta" id="binanceStatus">Connecting…</div><div class="mini-meta" id="binancePrice">—</div></div></div><div class="hint" id="reason">Upload a screenshot or verified CSV to begin. WAIT means insufficient or uncertain evidence.</div><div style="margin-top:18px">Bullish indicator agreement <span style="float:right" id="upScore">—</span></div><div class="meter"><div class="fill g" id="upBar"></div></div>Bearish indicator agreement <span style="float:right" id="downScore">—</span><div class="meter"><div class="fill r" id="downBar"></div></div><p class="hint">These are indicator vote counts, not probabilities, win rates or guaranteed outcomes.</p></div>
 <div class="card"><h2>Indicator monitor</h2><div class="metricgrid"><div class="metric"><small>RSI 14</small><strong id="rsi">—</strong></div><div class="metric"><small>MACD histogram</small><strong id="macd">—</strong></div><div class="metric"><small>EMA 9 / EMA 21</small><strong id="ema">—</strong></div><div class="metric"><small>ATR 14</small><strong id="atr">—</strong></div></div><p class="hint" id="quality">Indicators require sufficient detected candles. Relative-price screenshot estimates can distort them.</p></div>
 <div class="card" id="timingCard"><h2>⏱ Next Candle Timing Monitor</h2>
 <p class="hint">For a screenshot selected during 21:36, the target is 21:37:00–21:38:00. If analysis finishes after 21:37:00, the window is already stale. Times follow your iPhone clock; no Binomo synchronization is available.</p>
@@ -39,7 +49,7 @@
 </section>
 </div>
 <div class="card"><h2>Extracted candle data</h2><div class="tablewrap"><table><thead><tr><th># / time</th><th>Open</th><th>High</th><th>Low</th><th>Close</th></tr></thead><tbody id="rows"><tr><td colspan="5">No candle data yet.</td></tr></tbody></table></div></div>
-</main><footer>Educational chart research only. No Binomo API connection, live market feed, automatic trading or verified next-candle prediction. Screenshot-derived candles and prices are approximate. Trading can result in financial loss.</footer>
+</main><footer>Educational chart research only. No live Binomo API connection or automatic trading. Binance live prices are a separate market reference, not Binomo Crypto IDX quotes or signals. Screenshot-derived candles and prices are approximate. Trading can result in financial loss.</footer>
 <script>
 'use strict';
 const $=id=>document.getElementById(id),canvas=$('imageCanvas'),ctx=canvas.getContext('2d',{willReadFrequently:true});
@@ -162,4 +172,42 @@ function updateTiming(){
  else{$('bias').textContent='WAIT';$('bias').className='big wait';cd.textContent='EXPIRED';el.textContent='TARGET WINDOW ENDED · Old screenshot research must not be presented as a current signal.';el.className='status warn'}
 }
 setInterval(updateTiming,500);updateTiming();
+
+// Public Binance spot reference. Never merged into Binomo IDX candles or indicators.
+let binanceLastSuccess=0,binanceBusy=false,binanceRequest=0;
+function binanceDisplay(direction,detail,price){
+ const el=$('binanceBias');el.textContent=direction;el.className='mini-bias '+direction.toLowerCase();
+ $('binanceStatus').textContent=detail;$('binancePrice').textContent=price||'—';
+}
+async function pollBinance(){
+ if(binanceBusy)return;
+ binanceBusy=true;
+ const req=++binanceRequest,pair=$('binancePair').value;
+ const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),8000);
+ try{
+  const url='https://api.binance.com/api/v3/klines?symbol='+encodeURIComponent(pair)+'&interval=1m&limit=100';
+  const res=await fetch(url,{cache:'no-store',signal:controller.signal});
+  if(!res.ok)throw Error('HTTP '+res.status);
+  const data=await res.json();
+  if(!Array.isArray(data)||data.length<40)throw Error('Not enough Binance candles');
+  // Use only completed candles; the most recent Binance 1m bar may still be open.
+  const now=Date.now(),closed=data.filter(k=>Number(k[6])<now).map(k=>({t:Number(k[0]),o:+k[1],h:+k[2],l:+k[3],c:+k[4]}));
+  if(closed.length<35)throw Error('Not enough completed candles');
+  if(req!==binanceRequest||pair!==$('binancePair').value)return;
+  const newest=closed.at(-1);
+  if(now-newest.t>180000)throw Error('Feed is stale');
+  const info=calc(closed);
+  if(!info)throw Error('Indicators unavailable');
+  binanceLastSuccess=now;
+  const price=newest.c.toLocaleString('en-US',{maximumFractionDigits:pair==='BTCUSDT'?2:4});
+  binanceDisplay(info.dir,'1m · '+info.up+'/5 bullish · '+new Date(now).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'}),price+' USDT');
+ }catch(err){
+  if(req===binanceRequest)binanceDisplay('WAIT','Binance unavailable: '+(err.name==='AbortError'?'timeout':err.message),'No live reference');
+ }finally{clearTimeout(timeout);binanceBusy=false}
+}
+$('binancePair').addEventListener('change',()=>{binanceRequest++;binanceDisplay('WAIT','Switching pair…','—');pollBinance()});
+pollBinance();setInterval(pollBinance,20000);
+// Safari can suspend intervals in background; refresh when visible again.
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){binanceDisplay('WAIT','Refreshing live reference…','—');pollBinance()}});
+setInterval(()=>{if(binanceLastSuccess&&Date.now()-binanceLastSuccess>70000)binanceDisplay('WAIT','Feed stale · reconnecting','—')},5000);
 </script></body></html>
