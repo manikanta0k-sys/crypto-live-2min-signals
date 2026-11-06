@@ -24,7 +24,7 @@
 <div class="card"><h2>Research bias · 1-minute context</h2><span class="badge" id="source">NO DATA</span><div class="big wait" id="bias">WAIT</div><div class="hint" id="reason">Upload a screenshot or verified CSV to begin. WAIT means insufficient or uncertain evidence.</div><div style="margin-top:18px">Bullish indicator agreement <span style="float:right" id="upScore">—</span></div><div class="meter"><div class="fill g" id="upBar"></div></div>Bearish indicator agreement <span style="float:right" id="downScore">—</span><div class="meter"><div class="fill r" id="downBar"></div></div><p class="hint">These are indicator vote counts, not probabilities, win rates or guaranteed outcomes.</p></div>
 <div class="card"><h2>Indicator monitor</h2><div class="metricgrid"><div class="metric"><small>RSI 14</small><strong id="rsi">—</strong></div><div class="metric"><small>MACD histogram</small><strong id="macd">—</strong></div><div class="metric"><small>EMA 9 / EMA 21</small><strong id="ema">—</strong></div><div class="metric"><small>ATR 14</small><strong id="atr">—</strong></div></div><p class="hint" id="quality">Indicators require sufficient detected candles. Relative-price screenshot estimates can distort them.</p></div>
 <div class="card"><h2>Minute clock</h2><div class="count" id="clock">--:--</div><p class="hint">Device-clock countdown only. This does not indicate an active Binomo data connection or a signal refresh.</p></div>
-<div class="card"><h2>Historical demo backtest</h2><p class="hint">Only enabled for imported, verified 1-minute OHLC CSV. Screenshot-derived values have synthetic timestamps and are unsuitable for meaningful backtesting.</p><button id="backtest" class="secondary" disabled>Run demo backtest</button><div class="status" id="backtestMessage">Import verified OHLC CSV to enable.</div></div>
+<div class="card"><h2>04 · Multi-strategy research monitor</h2><p class="hint">All calculations use the currently imported candles. Screenshot-derived values are approximate, and strategy names do not imply Binomo endorsement or live connectivity.</p><div class="metricgrid" id="strategyGrid"><div class="metric">Awaiting candle data</div></div><div class="status" id="strategySummary">WAIT · No verified data</div></div><div class="card"><h2>Historical demo backtest</h2><p class="hint">Only enabled for imported, verified 1-minute OHLC CSV. Screenshot-derived values have synthetic timestamps and are unsuitable for meaningful backtesting.</p><button id="backtest" class="secondary" disabled>Run demo backtest</button><div class="status" id="backtestMessage">Import verified OHLC CSV to enable.</div></div>
 </section>
 </div>
 <div class="card"><h2>Extracted candle data</h2><div class="tablewrap"><table><thead><tr><th># / time</th><th>Open</th><th>High</th><th>Low</th><th>Close</th></tr></thead><tbody id="rows"><tr><td colspan="5">No candle data yet.</td></tr></tbody></table></div></div>
@@ -96,4 +96,37 @@ $('clear').onclick=()=>{$('csvText').value='';lastCSV=null;setData([],'none');st
 $('backtest').onclick=()=>{if(kind!=='csv'||candles.length<40)return;let total=0,wins=0;for(let i=35;i<candles.length-1;i++){let d=calc(candles.slice(0,i+1)).dir;if(d==='WAIT')continue;total++;let next=candles[i+1];if((d==='UP'&&next.c>next.o)||(d==='DOWN'&&next.c<next.o))wins++} $('backtestMessage').textContent=total?`${total} historical one-candle directional tests; ${wins} matches (${(wins/total*100).toFixed(1)}%). No payout or trading-cost assumptions. In-sample results, not proof of predictive accuracy.`:'No qualifying historical signals in this dataset.'};
 function clock(){let remaining=60-new Date().getUTCSeconds();$('clock').textContent='00:'+String(remaining===60?0:remaining).padStart(2,'0')}
 setInterval(clock,1000);clock();drawImage();setData([],'none');window.addEventListener('resize',()=>plot());
+
+// Additional technical studies, calculated on the same historical/estimated candles.
+function smaSeries(v,n){return v.map((_,i)=>i<n-1?null:v.slice(i-n+1,i+1).reduce((a,b)=>a+b,0)/n)}
+function wmaSeries(v,n){let denom=n*(n+1)/2;return v.map((_,i)=>i<n-1?null:v.slice(i-n+1,i+1).reduce((a,b,j)=>a+b*(j+1),0)/denom)}
+function hmaLast(v,n=16){if(v.length<n+Math.round(Math.sqrt(n)))return null;let half=wmaSeries(v,Math.floor(n/2)),full=wmaSeries(v,n);let mixed=v.map((_,i)=>half[i]===null||full[i]===null?null:2*half[i]-full[i]);let valid=mixed.filter(x=>x!==null);return wmaSeries(valid,Math.round(Math.sqrt(n))).at(-1)}
+function heikinLast(a){let ho=(a[0].o+a[0].c)/2,hc=(a[0].o+a[0].h+a[0].l+a[0].c)/4;for(let i=1;i<a.length;i++){let next=(ho+hc)/2;hc=(a[i].o+a[i].h+a[i].l+a[i].c)/4;ho=next}return hc>ho?'UP':hc<ho?'DOWN':'WAIT'}
+function fractalLast(a){let high=null,low=null;for(let i=2;i<a.length-2;i++){if(a[i].h>Math.max(a[i-2].h,a[i-1].h,a[i+1].h,a[i+2].h))high=a[i].h;if(a[i].l<Math.min(a[i-2].l,a[i-1].l,a[i+1].l,a[i+2].l))low=a[i].l}return{high,low}}
+function engulfLast(a){let b=a.at(-2),c=a.at(-1);if(!b||!c)return'WAIT';if(b.c<b.o&&c.c>c.o&&c.o<=b.c&&c.c>=b.o)return'UP';if(b.c>b.o&&c.c<c.o&&c.o>=b.c&&c.c<=b.o)return'DOWN';return'WAIT'}
+function strategyResults(a){
+ if(a.length<35)return[];
+ let ind=calc(a),cl=a.map(x=>x.c),last=cl.at(-1),prev=cl.at(-2),e9=ema(cl,9).at(-1),e21=ema(cl,21).at(-1),sma=smaSeries(cl,20).at(-1),hma=hmaLast(cl);
+ const vote=(bull,bear)=>bull?'UP':bear?'DOWN':'WAIT';
+ const rsiDir=vote(ind.rsi>55,ind.rsi<45),macdDir=vote(ind.hist>0,ind.hist<0),emaDir=vote(e9>e21,e9<e21);
+ const consensus=(parts)=>{let up=parts.filter(x=>x==='UP').length,down=parts.filter(x=>x==='DOWN').length;return up>=2&&down===0?'UP':down>=2&&up===0?'DOWN':'WAIT'};
+ let f=fractalLast(a),breakout=vote(f.high!==null&&last>f.high,f.low!==null&&last<f.low);
+ let eng=engulfLast(a),ha=heikinLast(a),hmaDir=hma===null?'WAIT':vote(last>hma,last<hma),smaDir=vote(last>sma,last<sma);
+ return[
+ ['Dynamic Momentum Swing',consensus([rsiDir,macdDir]),'RSI 14 + MACD histogram'],
+ ['Crypto SMA / EMA / HMA / MACD',consensus([smaDir,emaDir,hmaDir,macdDir]),'Trend alignment'],
+ ['Fast Ride',consensus([emaDir,macdDir]),'EMA 9/21 + MACD'],
+ ['Fractals',breakout,'Confirmed 5-bar fractal breakout'],
+ ['Engulfing',eng,'Last two candle bodies'],
+ ['Heikin Ashi',ha,'Smoothed candle direction']
+ ]}
+function renderStrategies(){
+ let results=strategyResults(candles),grid=$('strategyGrid'),summary=$('strategySummary');
+ if(!results.length){grid.innerHTML='<div class="metric">At least 35 usable candles needed.</div>';summary.textContent='WAIT · Insufficient data';return}
+ grid.innerHTML=results.map(([name,dir,detail])=>`<div class="metric"><small>${name}</small><strong style="color:${dir==='UP'?'#10b981':dir==='DOWN'?'#f43f5e':'#a7b5d1'}">${dir}</strong><small>${detail}</small></div>`).join('');
+ let ups=results.filter(x=>x[1]==='UP').length,downs=results.filter(x=>x[1]==='DOWN').length;
+ summary.textContent=`${ups} bullish · ${downs} bearish · ${results.length-ups-downs} neutral strategies. ${kind==='screenshot'?'Screenshot estimates only; not actual Crypto IDX OHLC or live signals.':'Historical CSV only; not live.'}`;
+}
+const renderBase=render;
+render=function(){renderBase();renderStrategies()};
 </script></body></html>
