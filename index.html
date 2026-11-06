@@ -1,7 +1,17 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Crypto IDX Research Lab · 1m</title><style>
 :root{color-scheme:dark;--bg:#0b0f19;--panel:#111827;--line:#2a3850;--txt:#e5ecf7;--mut:#9aa9c1;--green:#10b981;--red:#f43f5e;--blue:#3b82f6}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top right,#162a4d 0%,#0b0f19 55%);font:14px Inter,system-ui,sans-serif;color:var(--txt)}header{padding:22px max(18px,calc((100vw - 1300px)/2));border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}h1{margin:0;font-size:22px}h2{font-size:16px;margin:0 0 14px}h3{font-size:13px;margin:12px 0;color:var(--mut)}small,.mut{color:var(--mut)}main{max-width:1300px;margin:auto;padding:20px;display:grid;gap:16px}.grid{display:grid;grid-template-columns:1.6fr 1fr;gap:16px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{background:rgba(17,24,39,.88);border:1px solid var(--line);border-radius:17px;padding:18px;box-shadow:0 10px 30px #0002;backdrop-filter:blur(12px)}button,select,input,textarea{font:inherit;color:var(--txt);background:#15243b;border:1px solid #38506c;border-radius:9px;padding:10px}button{cursor:pointer;background:linear-gradient(110deg,#2563eb,#6d28d9);border:0;font-weight:700}button.secondary{background:#233148}button:hover{filter:brightness(1.13)}input[type=file]{max-width:100%;width:100%}textarea{width:100%;min-height:100px;font-family:ui-monospace,monospace;font-size:12px}label{display:block;color:var(--mut);margin-bottom:6px}.controls{display:flex;gap:9px;align-items:end;flex-wrap:wrap}.controls>div{min-width:130px;flex:1}.pill{border:1px solid #2c6379;border-radius:100px;padding:8px 12px;color:#8ee6c6;background:#0d2b30}.warning{padding:12px;border:1px solid #7b5830;background:#2a221b;border-radius:10px;color:#fbd6a5}.big{font-size:56px;font-weight:900;line-height:1.2;letter-spacing:2px}.wait{color:#aab7cc}.up{color:var(--green)}.down{color:var(--red)}.metric{font-size:26px;font-weight:800}.bar{height:9px;background:#27344b;border-radius:20px;overflow:hidden}.fill{height:100%;background:var(--blue);width:0;transition:width .3s}.flex{display:flex;justify-content:space-between;gap:10px;align-items:center}canvas{width:100%;height:320px;background:#091321;border-radius:12px}table{border-collapse:collapse;width:100%;font-size:12px}th,td{padding:9px 7px;border-bottom:1px solid #263348;text-align:right}th:first-child,td:first-child{text-align:left}.scroll{max-height:310px;overflow:auto}.scroll::-webkit-scrollbar{width:7px}.scroll::-webkit-scrollbar-thumb{background:#395f98;border-radius:10px}.tag{font-size:11px;background:#1e314d;border-radius:5px;padding:3px 6px}.help{line-height:1.6}footer{padding:22px;text-align:center;color:var(--mut);border-top:1px solid var(--line)}@media(max-width:800px){.grid,.three{grid-template-columns:1fr}.big{font-size:44px}main{padding:12px}header{padding:18px}canvas{height:260px}}
+
+#shotCanvas{width:100%;height:auto;max-height:430px;object-fit:contain;touch-action:none;cursor:crosshair;border:1px solid #38506c}
+.shotrow{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
+@media(max-width:800px){.shotrow{grid-template-columns:1fr}}
 </style></head><body><header><div><h1>◇ CRYPTO IDX <span style="color:#60a5fa">RESEARCH LAB</span></h1><small>1-minute technical analysis · user-supplied IDX candles · walk-forward demo backtesting</small></div><div class="pill" id="status">● AWAITING IDX DATA</div></header><main>
 <div class="warning"><b>Data integrity:</b> Actual Binomo Crypto IDX data is available here only when you import authorized historical OHLC records. No official public live IDX feed has been verified. Binance comparison is a separate instrument and must not be represented as Binomo quotes. No automatic trading.</div>
+<div class="card" id="screenshotPanel"><h2>📷 Screenshot Upload &amp; Chart Crop</h2>
+<p class="mut">Upload a Binomo Crypto IDX screenshot. Drag a rectangle around the candle chart only. This experimental extractor estimates <b>relative candle shapes</b> from green/red pixels; it cannot recover exact prices or timestamps. Review results before research use.</p>
+<div class="controls"><div><label>Choose screenshot (PNG/JPG/WEBP)</label><input type="file" id="shotFile" accept="image/png,image/jpeg,image/webp"></div>
+<button id="cropReset" class="secondary" type="button">Reset selection</button><button id="shotAnalyze" type="button">Extract estimated candles</button></div>
+<div class="shotrow" style="margin-top:14px"><div><canvas id="shotCanvas" width="900" height="400"></canvas><small>Drag over the candle region to select. No screenshot leaves your browser.</small></div>
+<div><div id="shotMessage" class="warning">Awaiting screenshot. The screenshot tool is offline, not a live signal feed.</div><p class="mut">Color extraction expects green and red candles with contrasting colors. Grid lines, overlapping indicators, and compressed screenshots can distort detection. Extraction is only a starting point.</p></div></div></div>
 <div class="card"><h2>1 · Load authorized Crypto IDX candle history</h2><div class="controls"><div><label>CSV file (1-minute OHLC)</label><input id="file" type="file" accept=".csv,text/csv"></div><div><label>Or paste CSV</label><button class="secondary" id="example">Load synthetic example (testing only)</button></div><div><button id="import">Analyze pasted data</button></div><div><button class="secondary" id="clear">Clear</button></div></div><p class="mut">Required columns: <code>time,open,high,low,close</code>. Optional <code>volume</code>. Times should be ISO timestamps with timezone or Unix milliseconds. Use consecutive completed 1-minute candles, oldest first. The last candle is treated as closed.</p><textarea id="csv" placeholder="time,open,high,low,close,volume&#10;2026-11-06T10:00:00Z,100,102,99,101,0&#10;2026-11-06T10:01:00Z,101,103,100,102,0"></textarea><div id="loadmsg" class="mut" aria-live="polite"></div></div>
 <div class="grid"><div class="card"><div class="flex"><h2>Actual imported IDX · 1m candles</h2><span class="tag" id="source">NO DATA</span></div><canvas id="chart" width="1000" height="360"></canvas><div class="flex"><span class="mut" id="range">Import data to begin</span><span class="mut">Next UTC minute boundary in <b id="countdown">--:--</b></span></div><p class="mut">Historical chart only. Countdown follows your device clock; it does not imply a live IDX connection.</p></div><div class="card"><h2>2 · Research bias (not a trade instruction)</h2><div id="direction" class="big wait">NO DATA</div><p id="reasons" class="mut">Load at least 35 completed candles to calculate indicators.</p><div class="flex"><span>Bullish indicator agreement</span><b id="bull">—</b></div><div class="bar"><div id="bullbar" class="fill" style="background:var(--green)"></div></div><br><div class="flex"><span>Bearish indicator agreement</span><b id="bear">—</b></div><div class="bar"><div id="bearbar" class="fill" style="background:var(--red)"></div></div><p class="mut">Agreement scores count indicator votes. They are <b>not</b> probabilities, confidence intervals or expected win rates.</p><div class="three"><div><small>RSI 14</small><div class="metric" id="rsi">—</div></div><div><small>MACD histogram</small><div class="metric" id="macd">—</div></div><div><small>ATR 14</small><div class="metric" id="atr">—</div></div></div><p id="quality" class="mut"></p></div></div>
 <div class="grid"><div class="card"><h2>3 · Historical demo backtest</h2><p class="mut">At each historical candle close, compute indicators using only candles available at that time; compare with the next candle close. No future candles are used in signal generation. WAIT periods are excluded from trade counts.</p><div class="controls"><div><label>Demo payout on win (%)</label><input id="payout" type="number" min="0" max="100" value="82"></div><div><label>Fixed demo stake (units)</label><input id="stake" type="number" min="0.01" value="1" step="0.1"></div><button id="backtest">Run backtest</button><button class="secondary" id="export">Export results CSV</button></div><div class="three" style="margin-top:16px"><div><small>Trades</small><div class="metric" id="trades">—</div></div><div><small>Win rate</small><div class="metric" id="winrate">—</div></div><div><small>Net demo P/L</small><div class="metric" id="pnl">—</div></div></div><p id="btinfo" class="mut">Results are in-sample descriptive outcomes, not forward-looking accuracy.</p><div class="scroll"><table><thead><tr><th>Entry window</th><th>Bias</th><th>Close → next close</th><th>Result</th><th>Demo P/L</th></tr></thead><tbody id="results"></tbody></table></div></div><div class="card"><h2>4 · Data checks & methodology</h2><div id="checks" class="help mut">No data imported.</div><h3>Indicator rules</h3><p class="help mut">RSI(14), EMA(9/21), MACD(12,26,9), ATR(14), and last-5-candle balance. Direction requires at least 3 of 5 votes and a lead of 2 votes; otherwise WAIT. Backtest signals use the same fixed rules.</p><h3>Permitted data source</h3><p class="help mut">Ask Binomo support for a documented, explicitly authorized read-only Crypto IDX OHLC export or market-data API. Do not paste passwords, session tokens or cookies into this page. Third-party reverse-engineered broker endpoints are not integrated.</p><p class="help mut">If you only have screenshots, use the earlier screenshot tool to extract and manually verify OHLC values, then paste the resulting CSV here.</p></div></div>
@@ -20,4 +30,82 @@ $('example').onclick=()=>{let lines=['time,open,high,low,close,volume'],p=100,ba
 $('backtest').onclick=()=>{if(data.length<60){$('btinfo').textContent='Import at least 60 candles for backtesting.';return}let stake=+$('stake').value,payout=+$('payout').value;if(!(stake>0)||!(payout>=0&&payout<=100)){ $('btinfo').textContent='Enter valid stake and payout.';return}trades=[];let waits=0,skips=0;for(let i=35;i<data.length-1;i++){if(data[i+1].t-data[i].t!==60000){skips++;continue}let r=calc(data.slice(0,i+1));if(!r||r.dir==='WAIT'){waits++;continue}let a=data[i],b=data[i+1],result=b.c===a.c?'TIE':((b.c>a.c)===(r.dir==='UP')?'WIN':'LOSS');let pl=result==='WIN'?stake*payout/100:result==='LOSS'?-stake:0;trades.push({time:new Date(b.t).toISOString(),dir:r.dir,from:a.c,to:b.c,result,pl})}let wins=trades.filter(x=>x.result==='WIN').length,losses=trades.filter(x=>x.result==='LOSS').length,decided=wins+losses,net=trades.reduce((a,b)=>a+b.pl,0);$('trades').textContent=trades.length;$('winrate').textContent=decided?(100*wins/decided).toFixed(1)+'%':'—';$('pnl').textContent=net.toFixed(2);$('pnl').className='metric '+(net>=0?'up':'down');$('btinfo').textContent=`${wins} wins · ${losses} losses · ${trades.length-decided} ties · ${waits} WAIT periods · ${skips} gaps skipped. In-sample, no fees or execution delays. Ties count as zero P/L in this demo (actual broker settlement may differ).`;$('results').innerHTML=trades.slice(-150).reverse().map(x=>`<tr><td>${esc(x.time.slice(0,16))}</td><td class="${x.dir.toLowerCase()}">${x.dir}</td><td>${fmt(x.from)} → ${fmt(x.to)}</td><td>${x.result}</td><td>${x.pl.toFixed(2)}</td></tr>`).join('')};
 $('export').onclick=()=>{if(!trades.length){$('btinfo').textContent='Run a backtest first.';return}let rows=['time,direction,entry_close,next_close,result,demo_pl',...trades.map(x=>[x.time,x.dir,x.from,x.to,x.result,x.pl].join(','))];let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([rows.join('\n')],{type:'text/csv'}));a.download='idx_demo_backtest.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 function tick(){let left=60-Math.floor(Date.now()/1000)%60;$('countdown').textContent='00:'+String(left%60).padStart(2,'0')}tick();setInterval(tick,500);draw();
+
+// Screenshot chart tool: purely local and experimental; synthetic relative-price reconstruction.
+let shotImage=null,shotRect=null,shotStart=null,shotIsEstimated=false,shotMode=false;
+const sc=$('shotCanvas'),sx=sc.getContext('2d');
+function shotDraw(){
+ sx.fillStyle='#091321';sx.fillRect(0,0,sc.width,sc.height);
+ if(!shotImage)return;
+ sx.drawImage(shotImage,0,0,sc.width,sc.height);
+ if(shotRect){sx.fillStyle='rgba(59,130,246,.16)';sx.fillRect(shotRect.x,shotRect.y,shotRect.w,shotRect.h);sx.strokeStyle='#60a5fa';sx.lineWidth=3;sx.strokeRect(shotRect.x,shotRect.y,shotRect.w,shotRect.h)}
+}
+function shotPoint(e){const r=sc.getBoundingClientRect();return {x:Math.max(0,Math.min(sc.width,(e.clientX-r.left)*sc.width/r.width)),y:Math.max(0,Math.min(sc.height,(e.clientY-r.top)*sc.height/r.height))}}
+$('shotFile').addEventListener('change',e=>{
+ const f=e.target.files[0];if(!f)return;
+ if(!['image/png','image/jpeg','image/webp'].includes(f.type)){ $('shotMessage').textContent='Choose a PNG, JPG or WEBP image.';return }
+ const u=URL.createObjectURL(f),im=new Image();
+ im.onload=()=>{shotImage=im;shotRect=null;shotDraw();URL.revokeObjectURL(u);$('shotMessage').textContent='Image loaded. Drag across the candle region, then press Extract estimated candles.'};
+ im.onerror=()=>{$('shotMessage').textContent='Unable to read image.';URL.revokeObjectURL(u)};
+ im.src=u;
+});
+sc.addEventListener('pointerdown',e=>{if(!shotImage)return;shotStart=shotPoint(e);sc.setPointerCapture(e.pointerId);shotRect=null});
+sc.addEventListener('pointermove',e=>{if(!shotStart)return;let p=shotPoint(e);shotRect={x:Math.min(p.x,shotStart.x),y:Math.min(p.y,shotStart.y),w:Math.abs(p.x-shotStart.x),h:Math.abs(p.y-shotStart.y)};shotDraw()});
+sc.addEventListener('pointerup',e=>{if(!shotStart)return;shotStart=null;if(shotRect&&(shotRect.w<25||shotRect.h<25))shotRect=null;shotDraw()});
+$('cropReset').onclick=()=>{shotRect=null;shotDraw()};
+function extractShot(){
+ if(!shotImage){$('shotMessage').textContent='Upload a screenshot first.';return}
+ const r=shotRect||{x:0,y:0,w:sc.width,h:sc.height};
+ const pixels=sx.getImageData(0,0,sc.width,sc.height).data;
+ // Segment colored candle columns, merging short horizontal gaps.
+ const left=Math.floor(r.x),right=Math.ceil(r.x+r.w),top=Math.floor(r.y),bottom=Math.ceil(r.y+r.h),columns=[];
+ for(let x=left;x<right;x++){
+  let green=0,red=0,minY=bottom,maxY=top;
+  for(let y=top;y<bottom;y++){
+   let k=(y*sc.width+x)*4,R=pixels[k],G=pixels[k+1],B=pixels[k+2];
+   let isGreen=G>65&&G>R*1.3&&G>B*1.1;
+   let isRed=R>90&&R>G*1.4&&R>B*1.08;
+   if(isGreen||isRed){if(isGreen)green++;else red++;minY=Math.min(minY,y);maxY=Math.max(maxY,y)}
+  }
+  columns.push({x,n:green+red,green,red,minY,maxY});
+ }
+ const threshold=Math.max(2,Math.round(r.h*.012));let runs=[],active=null;
+ for(let i=0;i<columns.length;i++){
+  let c=columns[i],hit=c.n>=threshold;
+  if(hit){if(!active)active={start:i,end:i,items:[]};active.end=i;active.items.push(c)}
+  else if(active&&i-active.end>2){runs.push(active);active=null}
+ }
+ if(active)runs.push(active);
+ runs=runs.filter(z=>z.items.length>=2&&z.items.length<r.w*.16);
+ if(runs.length<8){$('shotMessage').textContent=`Only ${runs.length} possible candles detected. Crop more tightly, use a clearer screenshot with green/red candles, or import real OHLC CSV.`;return}
+ let estimates=runs.map(z=>{
+  let ys=z.items.map(c=>({y0:c.minY,y1:c.maxY})),y0=Math.min(...ys.map(v=>v.y0)),y1=Math.max(...ys.map(v=>v.y1));
+  let green=z.items.reduce((s,c)=>s+c.green,0),red=z.items.reduce((s,c)=>s+c.red,0),up=green>=red;
+  // Trim wick extremes and estimate body using vertical colored-pixel density.
+  let counts=new Array(bottom-top).fill(0);
+  for(let c of z.items)for(let y=c.minY;y<=c.maxY;y++){let k=(y*sc.width+c.x)*4,R=pixels[k],G=pixels[k+1],B=pixels[k+2];if((G>65&&G>R*1.3&&G>B*1.1)||(R>90&&R>G*1.4&&R>B*1.08))counts[y-top]++}
+  let peak=Math.max(...counts),body=counts.map((v,i)=>v>=peak*.55?i+top:null).filter(v=>v!==null);
+  let a=body.length?Math.min(...body):y0,b=body.length?Math.max(...body):y1;
+  const price=y=>100+(bottom-y)/Math.max(1,r.h)*10;
+  let o=price(up?b:a),c=price(up?a:b),h=price(y0),l=price(y1);
+  return {o,h:Math.max(h,o,c),l:Math.min(l,o,c),c};
+ });
+ // Chart screenshot has no trustworthy candle timestamps. Use explicitly artificial 1m spacing.
+ let base=Math.floor(Date.now()/60000)*60000-estimates.length*60000;
+ let lines=['time,open,high,low,close,volume',...estimates.map((v,i)=>[new Date(base+i*60000).toISOString(),v.o.toFixed(5),v.h.toFixed(5),v.l.toFixed(5),v.c.toFixed(5),0].join(','))];
+ $('csv').value=lines.join('\n');
+ if(estimates.length<35){$('shotMessage').textContent=`Detected ${estimates.length} approximate candles; 35 are needed for indicators. Try a screenshot with more candles.`;return}
+ load($('csv').value);
+ shotIsEstimated=true;shotMode=true;
+ $('source').textContent='SCREENSHOT ESTIMATE · NOT ACTUAL OHLC';
+ $('status').textContent='● SCREENSHOT ESTIMATE';
+ $('quality').textContent='Screenshot estimates only: artificial relative prices and timestamps. Not actual Binomo OHLC. Do not trade or validate strategy with this data.';
+ $('checks').insertAdjacentHTML('afterbegin','<p><b>Screenshot-derived synthetic estimates — NOT authentic Binomo price history.</b></p>');
+ $('shotMessage').textContent=`Detected ${estimates.length} possible candles. Estimated relative OHLC loaded. Timestamps are artificial. Use actual verified CSV for meaningful backtesting.`;
+}
+$('shotAnalyze').onclick=extractShot;
+const originalBacktest=$('backtest').onclick;
+$('backtest').onclick=()=>{if(shotIsEstimated){$('btinfo').textContent='Backtesting disabled for screenshot-derived relative prices and invented timestamps. Import verified 1-minute OHLC CSV instead.';return}originalBacktest()};
+const originalLoad=load;
+load=function(txt){shotIsEstimated=false;shotMode=false;originalLoad(txt)};
 </script></body></html>
