@@ -1,1 +1,1 @@
-Upload index.html to GitHub Pages. Includes screenshot crop, RSI, MACD, EMA, SMA, HMA, ATR, Fractals, Engulfing and Heikin Ashi. Screenshot values are approximate and static. No live Binomo connection.
+Replace index.html in GitHub Pages. Screenshot selected at 21:36 targets 21:37-21:38. Analysis must finish before 21:37. Countdown is device clock only, not synchronized with Binomo. Research bias becomes WAIT when target begins. No Binance feed or live Binomo connection.

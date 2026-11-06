@@ -23,7 +23,18 @@
 <section>
 <div class="card"><h2>Research bias · 1-minute context</h2><span class="badge" id="source">NO DATA</span><div class="big wait" id="bias">WAIT</div><div class="hint" id="reason">Upload a screenshot or verified CSV to begin. WAIT means insufficient or uncertain evidence.</div><div style="margin-top:18px">Bullish indicator agreement <span style="float:right" id="upScore">—</span></div><div class="meter"><div class="fill g" id="upBar"></div></div>Bearish indicator agreement <span style="float:right" id="downScore">—</span><div class="meter"><div class="fill r" id="downBar"></div></div><p class="hint">These are indicator vote counts, not probabilities, win rates or guaranteed outcomes.</p></div>
 <div class="card"><h2>Indicator monitor</h2><div class="metricgrid"><div class="metric"><small>RSI 14</small><strong id="rsi">—</strong></div><div class="metric"><small>MACD histogram</small><strong id="macd">—</strong></div><div class="metric"><small>EMA 9 / EMA 21</small><strong id="ema">—</strong></div><div class="metric"><small>ATR 14</small><strong id="atr">—</strong></div></div><p class="hint" id="quality">Indicators require sufficient detected candles. Relative-price screenshot estimates can distort them.</p></div>
-<div class="card"><h2>Minute clock</h2><div class="count" id="clock">--:--</div><p class="hint">Device-clock countdown only. This does not indicate an active Binomo data connection or a signal refresh.</p></div>
+<div class="card" id="timingCard"><h2>⏱ Next Candle Timing Monitor</h2>
+<p class="hint">For a screenshot selected during 21:36, the target is 21:37:00–21:38:00. If analysis finishes after 21:37:00, the window is already stale. Times follow your iPhone clock; no Binomo synchronization is available.</p>
+<div class="metricgrid">
+<div class="metric"><small>Screenshot selected</small><strong id="shotTaken">—</strong></div>
+<div class="metric"><small>Analysis completed</small><strong id="analyzedAt">—</strong></div>
+<div class="metric"><small>Target candle starts</small><strong id="targetStart">—</strong></div>
+<div class="metric"><small>Target candle closes</small><strong id="targetEnd">—</strong></div>
+</div>
+<div class="status" id="timingStatus">Upload and analyze a screenshot to schedule the next complete 1-minute candle window.</div>
+<div class="count" id="targetCountdown">--:--</div>
+<p class="hint">The research bias is based on a static image. It is forced to WAIT once the target candle starts; uploading a new screenshot is required for a new window. No guaranteed trade direction.</p>
+</div><div class="card"><h2>Minute clock</h2><div class="count" id="clock">--:--</div><p class="hint">Device-clock countdown only. This does not indicate an active Binomo data connection or a signal refresh.</p></div>
 <div class="card"><h2>04 · Multi-strategy research monitor</h2><p class="hint">All calculations use the currently imported candles. Screenshot-derived values are approximate, and strategy names do not imply Binomo endorsement or live connectivity.</p><div class="metricgrid" id="strategyGrid"><div class="metric">Awaiting candle data</div></div><div class="status" id="strategySummary">WAIT · No verified data</div></div><div class="card"><h2>Historical demo backtest</h2><p class="hint">Only enabled for imported, verified 1-minute OHLC CSV. Screenshot-derived values have synthetic timestamps and are unsuitable for meaningful backtesting.</p><button id="backtest" class="secondary" disabled>Run demo backtest</button><div class="status" id="backtestMessage">Import verified OHLC CSV to enable.</div></div>
 </section>
 </div>
@@ -129,4 +140,26 @@ function renderStrategies(){
 }
 const renderBase=render;
 render=function(){renderBase();renderStrategies()};
+
+// Screenshot-only timing monitor: the target is the NEXT full minute after analysis.
+// It does not attempt to sync with Binomo servers or predict the next candle.
+let screenshotSelectedAt=null,analysisFinishedAt=null,targetMinuteStart=null;
+const timeLabel=t=>t?new Date(t).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}):'—';
+const originalUpload=$('upload').onchange;
+$('upload').onchange=function(e){screenshotSelectedAt=Date.now();analysisFinishedAt=null;targetMinuteStart=null;originalUpload.call(this,e);updateTiming()};
+const originalExtract=$('extract').onclick;
+$('extract').onclick=function(){originalExtract();if(kind==='screenshot'&&candles.length>=35){analysisFinishedAt=Date.now();targetMinuteStart=(Math.floor(screenshotSelectedAt/60000)+1)*60000;}else{analysisFinishedAt=null;targetMinuteStart=null}updateTiming()};
+function updateTiming(){
+ $('shotTaken').textContent=timeLabel(screenshotSelectedAt);
+ $('analyzedAt').textContent=timeLabel(analysisFinishedAt);
+ $('targetStart').textContent=timeLabel(targetMinuteStart);
+ $('targetEnd').textContent=timeLabel(targetMinuteStart?targetMinuteStart+60000:null);
+ const el=$('timingStatus'),cd=$('targetCountdown');
+ if(!targetMinuteStart){el.textContent='No usable screenshot analysis yet. Select an image, crop the chart, and analyze it.';el.className='status';cd.textContent='--:--';return}
+ let now=Date.now(),delta=targetMinuteStart-now;
+ if(delta>0){let secs=Math.ceil(delta/1000);$('bias').textContent=calc(candles)?.dir||'WAIT';$('bias').className='big '+$('bias').textContent.toLowerCase();cd.textContent=String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0');el.textContent='STATIC RESEARCH READY · Target candle has not started. Not a live prediction or trade instruction.';el.className='status ok'}
+ else if(now<targetMinuteStart+60000){$('bias').textContent='WAIT';$('bias').className='big wait';cd.textContent='00:00';el.textContent='TARGET CANDLE IN PROGRESS · Screenshot research is now stale. Upload a new screenshot for a new analysis window.';el.className='status warn'}
+ else{$('bias').textContent='WAIT';$('bias').className='big wait';cd.textContent='EXPIRED';el.textContent='TARGET WINDOW ENDED · Old screenshot research must not be presented as a current signal.';el.className='status warn'}
+}
+setInterval(updateTiming,500);updateTiming();
 </script></body></html>
