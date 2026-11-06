@@ -1,1 +1,1 @@
-Binomo screenshot research and a separate Binance live spot reference panel beside the UP/DOWN/WAIT research bias. Binance never supplies Binomo IDX data. GitHub Pages: replace root index.html. Binance public REST polling requires network access and may be blocked or rate limited. No live Binomo data connection.
+Upload index.html to the root of your GitHub Pages repository. Binance breadth shows 10 selected major USDT spot coins, not all crypto assets. Binance is not Binomo IDX.

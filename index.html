@@ -11,10 +11,10 @@
 .mini-live .mini-bias{font-size:clamp(22px,5vw,35px);font-weight:950;margin:5px 0}
 .mini-live .mini-meta{font-size:11px;color:#b3c6de;line-height:1.5}
 .mini-live select{max-width:100%;background:#182b43;color:#fff;border:1px solid #3d5573;border-radius:7px;padding:6px;margin-top:7px}
-.mini-live .mini-bias.up{color:#10b981}.mini-live .mini-bias.down{color:#f43f5e}.mini-live .mini-bias.wait{color:#a7b5d1}
+.coin-breadth{height:7px;background:#29384e;border-radius:9px;overflow:hidden;display:flex;margin:9px 0 5px}.coin-breadth .up-part{background:#10b981}.coin-breadth .down-part{background:#f43f5e}.coin-list{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}.coin-chip{font-size:9px;font-weight:750;padding:4px 5px;border:1px solid #34445d;border-radius:6px;color:#b8c9df}.coin-chip.up{border-color:#13694e;color:#5ce5ad}.coin-chip.down{border-color:#823247;color:#ff8295}.coin-chip.wait{color:#a8b7ca}.mini-live .mini-bias.up{color:#10b981}.mini-live .mini-bias.down{color:#f43f5e}.mini-live .mini-bias.wait{color:#a7b5d1}
 @media(max-width:390px){.signal-head{grid-template-columns:1fr 1fr;gap:7px}.mini-live{padding:8px}}
 </style></head><body>
-<header><div class="top"><div><div class="brand">◇ CRYPTO IDX <b>VISION LAB</b></div><small>Binomo screenshot analysis + separate live Binance reference</small></div><span class="tag" id="dataBadge">● NO DATA</span></div></header>
+<header><div class="top"><div><div class="brand">◇ CRYPTO IDX <b>VISION LAB</b></div><small>Binomo screenshot analysis + live Binance 10-coin market breadth</small></div><span class="tag" id="dataBadge">● NO DATA</span></div></header>
 <main>
 <div class="intro"><b>Binomo chart analysis, not a live Binomo feed.</b> Upload a screenshot and select the candles. The app estimates relative candle shapes locally; exact OHLC prices, timestamps and 1-minute spacing cannot be verified from an image. UP/DOWN/WAIT describes indicator bias, not a trade recommendation.</div>
 <div class="grid">
@@ -31,7 +31,7 @@
 <div class="card"><h2>03 · Optional verified OHLC CSV</h2><p class="hint">Only use actual authorized Crypto IDX OHLC history here. Expected columns: time,open,high,low,close. This is optional; you can use screenshot mode without a CSV.</p><input id="csvFile" type="file" accept=".csv,text/csv"><p class="hint">Or paste CSV:</p><textarea id="csvText" placeholder="time,open,high,low,close&#10;2026-11-06T10:00:00Z,100,102,99,101"></textarea><div class="row"><button id="import">Import verified CSV</button><button id="clear" class="secondary">Clear</button></div></div>
 </section>
 <section>
-<div class="card"><h2>Research bias · 1-minute context</h2><span class="badge" id="source">NO DATA</span><div class="signal-head"><div><div class="big wait" id="bias">WAIT</div><div class="hint" id="idxMiniLabel">BINOMO · SCREENSHOT ONLY</div></div><div class="mini-live" aria-label="Independent live Binance reference"><div class="mini-title">BINANCE · LIVE REFERENCE</div><select id="binancePair" aria-label="Binance trading pair"><option value="BTCUSDT">BTC / USDT</option><option value="ETHUSDT">ETH / USDT</option><option value="SOLUSDT">SOL / USDT</option></select><div class="mini-bias wait" id="binanceBias">WAIT</div><div class="mini-meta" id="binanceStatus">Connecting…</div><div class="mini-meta" id="binancePrice">—</div></div></div><div class="hint" id="reason">Upload a screenshot or verified CSV to begin. WAIT means insufficient or uncertain evidence.</div><div style="margin-top:18px">Bullish indicator agreement <span style="float:right" id="upScore">—</span></div><div class="meter"><div class="fill g" id="upBar"></div></div>Bearish indicator agreement <span style="float:right" id="downScore">—</span><div class="meter"><div class="fill r" id="downBar"></div></div><p class="hint">These are indicator vote counts, not probabilities, win rates or guaranteed outcomes.</p></div>
+<div class="card"><h2>Research bias · 1-minute context</h2><span class="badge" id="source">NO DATA</span><div class="signal-head"><div><div class="big wait" id="bias">WAIT</div><div class="hint" id="idxMiniLabel">BINOMO · SCREENSHOT ONLY</div></div><div class="mini-live" aria-label="Independent live Binance reference"><div class="mini-title">BINANCE · MARKET BREADTH</div><div class="mini-bias wait" id="binanceBias">WAIT</div><div class="mini-meta" id="binanceStatus">Loading 10 major cryptocurrencies…</div><div class="coin-breadth" aria-label="Bullish and bearish coin counts"><div class="up-part" id="breadthUp" style="width:0%"></div><div class="down-part" id="breadthDown" style="width:0%"></div></div><div class="mini-meta" id="binancePrice">10 major USDT pairs · 1m closed candles</div><div class="coin-list" id="coinList"></div></div></div><div class="hint" id="reason">Upload a screenshot or verified CSV to begin. WAIT means insufficient or uncertain evidence.</div><div style="margin-top:18px">Bullish indicator agreement <span style="float:right" id="upScore">—</span></div><div class="meter"><div class="fill g" id="upBar"></div></div>Bearish indicator agreement <span style="float:right" id="downScore">—</span><div class="meter"><div class="fill r" id="downBar"></div></div><p class="hint">These are indicator vote counts, not probabilities, win rates or guaranteed outcomes.</p></div>
 <div class="card"><h2>Indicator monitor</h2><div class="metricgrid"><div class="metric"><small>RSI 14</small><strong id="rsi">—</strong></div><div class="metric"><small>MACD histogram</small><strong id="macd">—</strong></div><div class="metric"><small>EMA 9 / EMA 21</small><strong id="ema">—</strong></div><div class="metric"><small>ATR 14</small><strong id="atr">—</strong></div></div><p class="hint" id="quality">Indicators require sufficient detected candles. Relative-price screenshot estimates can distort them.</p></div>
 <div class="card" id="timingCard"><h2>⏱ Next Candle Timing Monitor</h2>
 <p class="hint">For a screenshot selected during 21:36, the target is 21:37:00–21:38:00. If analysis finishes after 21:37:00, the window is already stale. Times follow your iPhone clock; no Binomo synchronization is available.</p>
@@ -49,7 +49,7 @@
 </section>
 </div>
 <div class="card"><h2>Extracted candle data</h2><div class="tablewrap"><table><thead><tr><th># / time</th><th>Open</th><th>High</th><th>Low</th><th>Close</th></tr></thead><tbody id="rows"><tr><td colspan="5">No candle data yet.</td></tr></tbody></table></div></div>
-</main><footer>Educational chart research only. No live Binomo API connection or automatic trading. Binance live prices are a separate market reference, not Binomo Crypto IDX quotes or signals. Screenshot-derived candles and prices are approximate. Trading can result in financial loss.</footer>
+</main><footer>Educational chart research only. No live Binomo API connection or automatic trading. Binance breadth covers 10 selected major cryptocurrencies, not all listed coins. It is a separate market reference, not Binomo Crypto IDX quotes or signals. Screenshot-derived candles and prices are approximate. Trading can result in financial loss.</footer>
 <script>
 'use strict';
 const $=id=>document.getElementById(id),canvas=$('imageCanvas'),ctx=canvas.getContext('2d',{willReadFrequently:true});
@@ -173,41 +173,51 @@ function updateTiming(){
 }
 setInterval(updateTiming,500);updateTiming();
 
-// Public Binance spot reference. Never merged into Binomo IDX candles or indicators.
-let binanceLastSuccess=0,binanceBusy=false,binanceRequest=0;
-function binanceDisplay(direction,detail,price){
+// Independent Binance market breadth. Selected major USDT spot pairs, NOT every cryptocurrency.
+// This is NOT a Binomo Crypto IDX feed or predictor.
+const MARKET_PAIRS=['BTC','ETH','BNB','SOL','XRP','ADA','DOGE','LINK','AVAX','LTC'];
+let binanceLastSuccess=0,binanceBusy=false;
+function binanceDisplay(direction,detail,extra){
  const el=$('binanceBias');el.textContent=direction;el.className='mini-bias '+direction.toLowerCase();
- $('binanceStatus').textContent=detail;$('binancePrice').textContent=price||'—';
+ $('binanceStatus').textContent=detail;$('binancePrice').textContent=extra;
+}
+async function getCoinBias(coin){
+ const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),9000);
+ try{
+  const url='https://api.binance.com/api/v3/klines?symbol='+coin+'USDT&interval=1m&limit=100';
+  const response=await fetch(url,{cache:'no-store',signal:controller.signal});
+  if(!response.ok)throw Error('HTTP '+response.status);
+  const data=await response.json();
+  if(!Array.isArray(data))throw Error('Invalid data');
+  const now=Date.now();
+  const closed=data.filter(k=>Number(k[6])<now).map(k=>({t:+k[0],o:+k[1],h:+k[2],l:+k[3],c:+k[4]}));
+  if(closed.length<35||now-(closed.at(-1).t+60000)>120000)throw Error('Stale candles');
+  const result=calc(closed);
+  return {coin,dir:result?.dir||'WAIT'};
+ }finally{clearTimeout(timeout)}
 }
 async function pollBinance(){
  if(binanceBusy)return;
  binanceBusy=true;
- const req=++binanceRequest,pair=$('binancePair').value;
- const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),8000);
  try{
-  const url='https://api.binance.com/api/v3/klines?symbol='+encodeURIComponent(pair)+'&interval=1m&limit=100';
-  const res=await fetch(url,{cache:'no-store',signal:controller.signal});
-  if(!res.ok)throw Error('HTTP '+res.status);
-  const data=await res.json();
-  if(!Array.isArray(data)||data.length<40)throw Error('Not enough Binance candles');
-  // Use only completed candles; the most recent Binance 1m bar may still be open.
-  const now=Date.now(),closed=data.filter(k=>Number(k[6])<now).map(k=>({t:Number(k[0]),o:+k[1],h:+k[2],l:+k[3],c:+k[4]}));
-  if(closed.length<35)throw Error('Not enough completed candles');
-  if(req!==binanceRequest||pair!==$('binancePair').value)return;
-  const newest=closed.at(-1);
-  if(now-newest.t>180000)throw Error('Feed is stale');
-  const info=calc(closed);
-  if(!info)throw Error('Indicators unavailable');
-  binanceLastSuccess=now;
-  const price=newest.c.toLocaleString('en-US',{maximumFractionDigits:pair==='BTCUSDT'?2:4});
-  binanceDisplay(info.dir,'1m · '+info.up+'/5 bullish · '+new Date(now).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'}),price+' USDT');
- }catch(err){
-  if(req===binanceRequest)binanceDisplay('WAIT','Binance unavailable: '+(err.name==='AbortError'?'timeout':err.message),'No live reference');
- }finally{clearTimeout(timeout);binanceBusy=false}
+  const results=await Promise.allSettled(MARKET_PAIRS.map(getCoinBias));
+  const coins=results.map((r,i)=>r.status==='fulfilled'?r.value:{coin:MARKET_PAIRS[i],dir:'WAIT',unavailable:true});
+  const available=coins.filter(c=>!c.unavailable),up=available.filter(c=>c.dir==='UP').length,down=available.filter(c=>c.dir==='DOWN').length;
+  const total=MARKET_PAIRS.length;
+  $('breadthUp').style.width=(up/total*100)+'%';
+  $('breadthDown').style.width=(down/total*100)+'%';
+  $('coinList').replaceChildren(...coins.map(c=>{const el=document.createElement('span');el.className='coin-chip '+c.dir.toLowerCase();el.textContent=c.coin+' '+(c.unavailable?'—':c.dir==='UP'?'▲':c.dir==='DOWN'?'▼':'•');return el}));
+  // Only call an aggregate direction when enough pairs are available and a clear majority agrees.
+  // No probability or prediction is implied by this indicator agreement.
+  const direction=available.length>=7&&up>=6?'UP':available.length>=7&&down>=6?'DOWN':'WAIT';
+  const stamp=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  binanceDisplay(direction,up+' bullish · '+down+' bearish · '+available.length+'/'+total+' available',
+    '10 selected major coins · 1m · '+stamp);
+  if(available.length>=7)binanceLastSuccess=Date.now();
+ }catch(err){binanceDisplay('WAIT','Market breadth unavailable','Try refreshing Safari');}
+ finally{binanceBusy=false}
 }
-$('binancePair').addEventListener('change',()=>{binanceRequest++;binanceDisplay('WAIT','Switching pair…','—');pollBinance()});
-pollBinance();setInterval(pollBinance,20000);
-// Safari can suspend intervals in background; refresh when visible again.
-document.addEventListener('visibilitychange',()=>{if(!document.hidden){binanceDisplay('WAIT','Refreshing live reference…','—');pollBinance()}});
-setInterval(()=>{if(binanceLastSuccess&&Date.now()-binanceLastSuccess>70000)binanceDisplay('WAIT','Feed stale · reconnecting','—')},5000);
+pollBinance();setInterval(pollBinance,30000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)pollBinance()});
+setInterval(()=>{if(binanceLastSuccess&&Date.now()-binanceLastSuccess>90000)binanceDisplay('WAIT','Market data stale · reconnecting','No current market breadth')},5000);
 </script></body></html>
