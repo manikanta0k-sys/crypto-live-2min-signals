@@ -12,7 +12,7 @@
 .mini-live .mini-meta{font-size:11px;color:#b3c6de;line-height:1.5}
 .mini-live select{max-width:100%;background:#182b43;color:#fff;border:1px solid #3d5573;border-radius:7px;padding:6px;margin-top:7px}
 .coin-breadth{height:7px;background:#29384e;border-radius:9px;overflow:hidden;display:flex;margin:9px 0 5px}.coin-breadth .up-part{background:#10b981}.coin-breadth .down-part{background:#f43f5e}.coin-list{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}.coin-chip{font-size:9px;font-weight:750;padding:4px 5px;border:1px solid #34445d;border-radius:6px;color:#b8c9df}.coin-chip.up{border-color:#13694e;color:#5ce5ad}.coin-chip.down{border-color:#823247;color:#ff8295}.coin-chip.wait{color:#a8b7ca}.mini-live .mini-bias.up{color:#10b981}.mini-live .mini-bias.down{color:#f43f5e}.mini-live .mini-bias.wait{color:#a7b5d1}
-@media(max-width:390px){.signal-head{grid-template-columns:1fr 1fr;gap:7px}.mini-live{padding:8px}}
+.aggregate-chart{margin-top:11px;padding:10px;background:#091625;border:1px solid #2c4967;border-radius:12px}.aggregate-chart canvas{display:block;width:100%;height:145px}.aggregate-top{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:5px}.aggregate-top b{font-size:11px;color:#d6e7ff}.aggregate-top span{font-size:10px;color:#9db7d6}.aggregate-note{font-size:10px;line-height:1.5;color:#94a9c5;margin-top:5px}@media(max-width:390px){.signal-head{grid-template-columns:1fr 1fr;gap:7px}.mini-live{padding:8px}}
 </style></head><body>
 <header><div class="top"><div><div class="brand">◇ CRYPTO IDX <b>VISION LAB</b></div><small>Binomo screenshot analysis + live Binance 10-coin market breadth</small></div><span class="tag" id="dataBadge">● NO DATA</span></div></header>
 <main>
@@ -32,6 +32,14 @@
 </section>
 <section>
 <div class="card"><h2>Research bias · 1-minute context</h2><span class="badge" id="source">NO DATA</span><div class="signal-head"><div><div class="big wait" id="bias">WAIT</div><div class="hint" id="idxMiniLabel">BINOMO · SCREENSHOT ONLY</div></div><div class="mini-live" aria-label="Independent live Binance reference"><div class="mini-title">BINANCE · MARKET BREADTH</div><div class="mini-bias wait" id="binanceBias">WAIT</div><div class="mini-meta" id="binanceStatus">Loading 10 major cryptocurrencies…</div><div class="coin-breadth" aria-label="Bullish and bearish coin counts"><div class="up-part" id="breadthUp" style="width:0%"></div><div class="down-part" id="breadthDown" style="width:0%"></div></div><div class="mini-meta" id="binancePrice">10 major USDT pairs · 1m closed candles</div><div class="coin-list" id="coinList"></div></div></div><div class="hint" id="reason">Upload a screenshot or verified CSV to begin. WAIT means insufficient or uncertain evidence.</div><div style="margin-top:18px">Bullish indicator agreement <span style="float:right" id="upScore">—</span></div><div class="meter"><div class="fill g" id="upBar"></div></div>Bearish indicator agreement <span style="float:right" id="downScore">—</span><div class="meter"><div class="fill r" id="downBar"></div></div><p class="hint">These are indicator vote counts, not probabilities, win rates or guaranteed outcomes.</p></div>
+<div class="card" id="aggregateGraphCard"><h2>📈 Binance · All 10 Coins Combined Graph</h2><div class="aggregate-top"><b>Equal-weight crypto basket · 1-minute candles</b><span id="aggregateMove">WAIT · Loading</span></div><div class="aggregate-chart"><canvas id="aggregateCanvas" width="760" height="220" aria-label="Single combined line graph of normalized returns across ten Binance cryptocurrencies"></canvas><div class="aggregate-note" id="aggregateGraphStatus">Fetching completed Binance candles…</div></div><p class="hint">One combined graph, not ten separate charts. Each coin is rebased to 100, then averaged equally. This is a synthetic reference index, not a tradeable Binance instrument and not Binomo Crypto IDX.</p></div>
+<div class="card" id="nextEstimateCard"><h2>🔎 Next 1-Minute Candle · Screenshot Estimate</h2>
+<p class="hint">After uploading and analyzing your Binomo screenshot, this panel displays the estimated direction for the next full minute. It is the SAME screenshot-derived research bias, not a separate prediction model or Binance-derived signal.</p>
+<div class="signal-head"><div><div class="mini-title">NEXT CANDLE · ESTIMATED DIRECTION</div><div class="big wait" id="nextEstimate">WAIT</div><div class="hint" id="nextEstimateWindow">Upload screenshot to begin</div></div><div class="mini-live"><div class="mini-title">SCREENSHOT QUALITY</div><div class="mini-bias wait" id="estimateQuality">UNKNOWN</div><div class="mini-meta" id="estimateDetails">Waiting for completed candles</div></div></div>
+<div class="status" id="estimateWarning">A screenshot cannot confirm actual price, exact candle close, or predict future direction reliably. WAIT when data is missing or stale.</div>
+<div class="row" style="margin-top:12px"><button class="secondary" id="actualUp">Actual candle: UP</button><button class="secondary" id="actualDown">Actual candle: DOWN</button><button class="secondary" id="actualFlat">Actual: FLAT</button></div>
+<div class="status" id="estimateReview">Optional: after the target candle closes, record its actual direction for a local comparison. This does not train the model or prove accuracy.</div>
+</div>
 <div class="card"><h2>Indicator monitor</h2><div class="metricgrid"><div class="metric"><small>RSI 14</small><strong id="rsi">—</strong></div><div class="metric"><small>MACD histogram</small><strong id="macd">—</strong></div><div class="metric"><small>EMA 9 / EMA 21</small><strong id="ema">—</strong></div><div class="metric"><small>ATR 14</small><strong id="atr">—</strong></div></div><p class="hint" id="quality">Indicators require sufficient detected candles. Relative-price screenshot estimates can distort them.</p></div>
 <div class="card" id="timingCard"><h2>⏱ Next Candle Timing Monitor</h2>
 <p class="hint">For a screenshot selected during 21:36, the target is 21:37:00–21:38:00. If analysis finishes after 21:37:00, the window is already stale. Times follow your iPhone clock; no Binomo synchronization is available.</p>
@@ -49,7 +57,7 @@
 </section>
 </div>
 <div class="card"><h2>Extracted candle data</h2><div class="tablewrap"><table><thead><tr><th># / time</th><th>Open</th><th>High</th><th>Low</th><th>Close</th></tr></thead><tbody id="rows"><tr><td colspan="5">No candle data yet.</td></tr></tbody></table></div></div>
-</main><footer>Educational chart research only. No live Binomo API connection or automatic trading. Binance breadth covers 10 selected major cryptocurrencies, not all listed coins. It is a separate market reference, not Binomo Crypto IDX quotes or signals. Screenshot-derived candles and prices are approximate. Trading can result in financial loss.</footer>
+</main><footer>Educational chart research only. No live Binomo API connection or automatic trading. Binance breadth and combined chart cover 10 selected major cryptocurrencies, not all listed coins. It is a separate market reference, not Binomo Crypto IDX quotes or signals. Screenshot-derived candles and prices are approximate. Trading can result in financial loss.</footer>
 <script>
 'use strict';
 const $=id=>document.getElementById(id),canvas=$('imageCanvas'),ctx=canvas.getContext('2d',{willReadFrequently:true});
@@ -171,6 +179,29 @@ function updateTiming(){
  else if(now<targetMinuteStart+60000){$('bias').textContent='WAIT';$('bias').className='big wait';cd.textContent='00:00';el.textContent='TARGET CANDLE IN PROGRESS · Screenshot research is now stale. Upload a new screenshot for a new analysis window.';el.className='status warn'}
  else{$('bias').textContent='WAIT';$('bias').className='big wait';cd.textContent='EXPIRED';el.textContent='TARGET WINDOW ENDED · Old screenshot research must not be presented as a current signal.';el.className='status warn'}
 }
+// Screenshot-specific next-candle estimate and optional outcome review.
+let reviewedEstimate=null;
+function updateNextEstimate(){
+ const e=$('nextEstimate'),q=$('estimateQuality'),w=$('nextEstimateWindow'),d=$('estimateDetails'),warn=$('estimateWarning');
+ const ind=kind==='screenshot'?calc(candles):null;
+ const ready=!!(ind&&targetMinuteStart&&analysisFinishedAt&&analysisFinishedAt<targetMinuteStart&&Date.now()<targetMinuteStart);
+ const direction=ready?ind.dir:'WAIT';
+ e.textContent=direction;e.className='big '+direction.toLowerCase();
+ w.textContent=targetMinuteStart?timeLabel(targetMinuteStart)+' – '+timeLabel(targetMinuteStart+60000):'Upload screenshot to begin';
+ q.textContent=!ind?'INSUFFICIENT':ready?'APPROXIMATE':'STALE';q.className='mini-bias wait';
+ d.textContent=ind?`${candles.length} estimated candles · ${ind.up}/5 bullish · ${ind.down}/5 bearish votes`:`${candles.length} detected candles · need at least 35`;
+ warn.textContent=!ind?'WAIT · Analyze a screenshot with at least 35 detected candles.':!ready?'WAIT · Screenshot analysis is stale or missed the target candle start. Upload a new screenshot.':'Research estimate only · Not a verified forecast, probability, or trade recommendation.';
+}
+for(const [id,actual] of [['actualUp','UP'],['actualDown','DOWN'],['actualFlat','FLAT']]){
+ $(id).onclick=()=>{
+  if(!targetMinuteStart||!analysisFinishedAt){$('estimateReview').textContent='Analyze a screenshot first.';return}
+  if(Date.now()<targetMinuteStart+60000){$('estimateReview').textContent='Wait until the target candle has closed before recording the actual direction.';return}
+  const ind=calc(candles),pred=analysisFinishedAt<targetMinuteStart?(ind?.dir||'WAIT'):'WAIT';
+  $('estimateReview').textContent=`Recorded actual ${actual} for ${timeLabel(targetMinuteStart)}–${timeLabel(targetMinuteStart+60000)}. Earlier research bias: ${pred}. ${pred==='WAIT'?'No directional comparison.':pred===actual?'Direction matched this one observation.':'Direction did not match this observation.'} Manual entry, not independently verified.`;
+ }
+}
+const priorUpdateTiming=updateTiming;
+updateTiming=function(){priorUpdateTiming();if(analysisFinishedAt&&targetMinuteStart&&analysisFinishedAt>=targetMinuteStart){$('bias').textContent='WAIT';$('bias').className='big wait';$('timingStatus').textContent='WAIT · Analysis completed after target candle began. Upload a fresh screenshot.';$('timingStatus').className='status warn'}updateNextEstimate()};
 setInterval(updateTiming,500);updateTiming();
 
 // Independent Binance market breadth. Selected major USDT spot pairs, NOT every cryptocurrency.
@@ -193,7 +224,7 @@ async function getCoinBias(coin){
   const closed=data.filter(k=>Number(k[6])<now).map(k=>({t:+k[0],o:+k[1],h:+k[2],l:+k[3],c:+k[4]}));
   if(closed.length<35||now-(closed.at(-1).t+60000)>120000)throw Error('Stale candles');
   const result=calc(closed);
-  return {coin,dir:result?.dir||'WAIT'};
+  return {coin,dir:result?.dir||'WAIT',closed};
  }finally{clearTimeout(timeout)}
 }
 async function pollBinance(){
@@ -213,9 +244,39 @@ async function pollBinance(){
   const stamp=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});
   binanceDisplay(direction,up+' bullish · '+down+' bearish · '+available.length+'/'+total+' available',
     '10 selected major coins · 1m · '+stamp);
+  drawAggregateGraph(available);
   if(available.length>=7)binanceLastSuccess=Date.now();
  }catch(err){binanceDisplay('WAIT','Market breadth unavailable','Try refreshing Safari');}
  finally{binanceBusy=false}
+}
+function drawAggregateGraph(coins){
+ const canvas=$('aggregateCanvas'),context=canvas.getContext('2d');
+ const w=canvas.width,h=canvas.height,pad={l:45,r:14,t:17,b:30};
+ context.clearRect(0,0,w,h);context.fillStyle='#091625';context.fillRect(0,0,w,h);
+ const series=coins.filter(c=>c.closed&&c.closed.length>=35);
+ if(series.length<7){context.fillStyle='#9db7d6';context.font='17px system-ui';context.fillText('WAIT · Need at least 7 live coin feeds',35,h/2);$('aggregateMove').textContent='WAIT';$('aggregateGraphStatus').textContent='Not enough fresh Binance candles to build the combined graph';return}
+ // Align all symbols by exact closed 1-minute open timestamp, not array position.
+ const byCoin=series.map(c=>new Map(c.closed.map(k=>[k.t,k.c])));
+ const times=[...byCoin[0].keys()].filter(t=>byCoin.every(m=>m.has(t))).sort((a,b)=>a-b).slice(-60);
+ if(times.length<20){$('aggregateMove').textContent='WAIT';$('aggregateGraphStatus').textContent='Insufficient overlapping closed 1-minute candles';return}
+ const bases=byCoin.map(m=>m.get(times[0]));
+ const values=times.map(t=>byCoin.reduce((sum,m,i)=>sum+100*m.get(t)/bases[i],0)/byCoin.length);
+ const low=Math.min(...values),high=Math.max(...values),range=Math.max(high-low,.08),min=low-range*.18,max=high+range*.18;
+ const x=i=>pad.l+i*(w-pad.l-pad.r)/(values.length-1),y=v=>pad.t+(max-v)*(h-pad.t-pad.b)/(max-min);
+ context.font='12px system-ui';context.lineWidth=1;context.textAlign='right';
+ for(let i=0;i<=4;i++){const v=min+(max-min)*i/4,yy=y(v);context.strokeStyle='#263c57';context.beginPath();context.moveTo(pad.l,yy);context.lineTo(w-pad.r,yy);context.stroke();context.fillStyle='#90a9c8';context.fillText(v.toFixed(2),pad.l-6,yy+4)}
+ context.strokeStyle='#57708b';context.setLineDash([5,5]);context.beginPath();context.moveTo(pad.l,y(100));context.lineTo(w-pad.r,y(100));context.stroke();context.setLineDash([]);
+ const change=values.at(-1)-100,positive=change>=0,lineColor=positive?'#34d399':'#fb7185';
+ const grad=context.createLinearGradient(0,pad.t,0,h-pad.b);grad.addColorStop(0,positive?'#10b98144':'#f43f5e44');grad.addColorStop(1,'#09162500');
+ context.beginPath();values.forEach((v,i)=>i?context.lineTo(x(i),y(v)):context.moveTo(x(i),y(v)));context.lineTo(x(values.length-1),h-pad.b);context.lineTo(x(0),h-pad.b);context.closePath();context.fillStyle=grad;context.fill();
+ context.beginPath();values.forEach((v,i)=>i?context.lineTo(x(i),y(v)):context.moveTo(x(i),y(v)));context.strokeStyle=lineColor;context.lineWidth=3;context.stroke();
+ context.fillStyle=lineColor;context.beginPath();context.arc(x(values.length-1),y(values.at(-1)),5,0,Math.PI*2);context.fill();
+ context.fillStyle='#91accb';context.textAlign='left';context.font='12px system-ui';
+ const fmt=t=>new Date(t).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+ context.fillText(fmt(times[0]),pad.l,h-8);context.textAlign='right';context.fillText(fmt(times.at(-1)),w-pad.r,h-8);
+ $('aggregateMove').textContent=(change>=0?'+':'')+change.toFixed(2)+'% · 60m basket';
+ $('aggregateMove').style.color=lineColor;
+ $('aggregateGraphStatus').textContent=series.length+' of 10 coins · '+times.length+' aligned closed 1m candles · Updated '+new Date().toLocaleTimeString();
 }
 pollBinance();setInterval(pollBinance,30000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)pollBinance()});
