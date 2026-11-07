@@ -13,6 +13,8 @@
 .mini-live select{max-width:100%;background:#182b43;color:#fff;border:1px solid #3d5573;border-radius:7px;padding:6px;margin-top:7px}
 .coin-breadth{height:7px;background:#29384e;border-radius:9px;overflow:hidden;display:flex;margin:9px 0 5px}.coin-breadth .up-part{background:#10b981}.coin-breadth .down-part{background:#f43f5e}.coin-list{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}.coin-chip{font-size:9px;font-weight:750;padding:4px 5px;border:1px solid #34445d;border-radius:6px;color:#b8c9df}.coin-chip.up{border-color:#13694e;color:#5ce5ad}.coin-chip.down{border-color:#823247;color:#ff8295}.coin-chip.wait{color:#a8b7ca}.mini-live .mini-bias.up{color:#10b981}.mini-live .mini-bias.down{color:#f43f5e}.mini-live .mini-bias.wait{color:#a7b5d1}
 .aggregate-chart{margin-top:11px;padding:10px;background:#091625;border:1px solid #2c4967;border-radius:12px}.aggregate-chart canvas{display:block;width:100%;height:145px}.aggregate-top{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:5px}.aggregate-top b{font-size:11px;color:#d6e7ff}.aggregate-top span{font-size:10px;color:#9db7d6}.aggregate-note{font-size:10px;line-height:1.5;color:#94a9c5;margin-top:5px}@media(max-width:390px){.signal-head{grid-template-columns:1fr 1fr;gap:7px}.mini-live{padding:8px}}
+
+.upgrade-tools{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:10px 0}.upgrade-tools button{padding:9px 13px;font-size:12px}.live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:5px}.live-dot.ok{background:#10b981;box-shadow:0 0 9px #10b98199}.live-dot.bad{background:#f43f5e}.upgrade-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}.upgrade-stat{border:1px solid #2b4763;background:#0b1a2c;border-radius:10px;padding:10px 7px;text-align:center}.upgrade-stat strong{display:block;font-size:18px;margin-top:4px}.upgrade-stat small{font-size:10px;color:#9cb3d1}.upgrade-tip{font-size:11px;color:#aabdd6;line-height:1.5}@media(max-width:380px){.upgrade-stats{gap:4px}.upgrade-stat strong{font-size:15px}}
 </style></head><body>
 <header><div class="top"><div><div class="brand">◇ CRYPTO IDX <b>VISION LAB</b></div><small>Binomo screenshot analysis + live Binance 10-coin market breadth</small></div><span class="tag" id="dataBadge">● NO DATA</span></div></header>
 <main>
@@ -32,7 +34,9 @@
 </section>
 <section>
 <div class="card"><h2>Research bias · 1-minute context</h2><span class="badge" id="source">NO DATA</span><div class="signal-head"><div><div class="big wait" id="bias">WAIT</div><div class="hint" id="idxMiniLabel">BINOMO · SCREENSHOT ONLY</div></div><div class="mini-live" aria-label="Independent live Binance reference"><div class="mini-title">BINANCE · MARKET BREADTH</div><div class="mini-bias wait" id="binanceBias">WAIT</div><div class="mini-meta" id="binanceStatus">Loading 10 major cryptocurrencies…</div><div class="coin-breadth" aria-label="Bullish and bearish coin counts"><div class="up-part" id="breadthUp" style="width:0%"></div><div class="down-part" id="breadthDown" style="width:0%"></div></div><div class="mini-meta" id="binancePrice">10 major USDT pairs · 1m closed candles</div><div class="coin-list" id="coinList"></div></div></div><div class="hint" id="reason">Upload a screenshot or verified CSV to begin. WAIT means insufficient or uncertain evidence.</div><div style="margin-top:18px">Bullish indicator agreement <span style="float:right" id="upScore">—</span></div><div class="meter"><div class="fill g" id="upBar"></div></div>Bearish indicator agreement <span style="float:right" id="downScore">—</span><div class="meter"><div class="fill r" id="downBar"></div></div><p class="hint">These are indicator vote counts, not probabilities, win rates or guaranteed outcomes.</p></div>
-<div class="card" id="aggregateGraphCard"><h2>📈 Binance · All 10 Coins Combined Graph</h2><div class="aggregate-top"><b>Equal-weight crypto basket · 1-minute candles</b><span id="aggregateMove">WAIT · Loading</span></div><div class="aggregate-chart"><canvas id="aggregateCanvas" width="760" height="220" aria-label="Single combined line graph of normalized returns across ten Binance cryptocurrencies"></canvas><div class="aggregate-note" id="aggregateGraphStatus">Fetching completed Binance candles…</div></div><p class="hint">One combined graph, not ten separate charts. Each coin is rebased to 100, then averaged equally. This is a synthetic reference index, not a tradeable Binance instrument and not Binomo Crypto IDX.</p></div>
+<div class="card" id="aggregateGraphCard"><h2>📈 Binance · All 10 Coins Combined Graph</h2>
+<div class="upgrade-tools"><button type="button" class="secondary" id="refreshMarket">↻ Refresh Binance now</button><span class="upgrade-tip"><span class="live-dot" id="marketDot"></span><span id="marketConnection">Connecting to Binance…</span></span></div>
+<div class="upgrade-stats"><div class="upgrade-stat"><small>Coin feeds online</small><strong id="marketFeeds">—</strong></div><div class="upgrade-stat"><small>Basket 5m change</small><strong id="basketFive">—</strong></div><div class="upgrade-stat"><small>Last successful update</small><strong id="marketAge">—</strong></div></div><div class="aggregate-top"><b>Equal-weight crypto basket · 1-minute candles</b><span id="aggregateMove">WAIT · Loading</span></div><div class="aggregate-chart"><canvas id="aggregateCanvas" width="760" height="220" aria-label="Single combined line graph of normalized returns across ten Binance cryptocurrencies"></canvas><div class="aggregate-note" id="aggregateGraphStatus">Fetching completed Binance candles…</div></div><p class="hint">One combined graph, not ten separate charts. Each coin is rebased to 100, then averaged equally. This is a synthetic reference index, not a tradeable Binance instrument and not Binomo Crypto IDX.</p></div>
 <div class="card" id="nextEstimateCard"><h2>🔎 Next 1-Minute Candle · Screenshot Estimate</h2>
 <p class="hint">After uploading and analyzing your Binomo screenshot, this panel displays the estimated direction for the next full minute. It is the SAME screenshot-derived research bias, not a separate prediction model or Binance-derived signal.</p>
 <div class="signal-head"><div><div class="mini-title">NEXT CANDLE · ESTIMATED DIRECTION</div><div class="big wait" id="nextEstimate">WAIT</div><div class="hint" id="nextEstimateWindow">Upload screenshot to begin</div></div><div class="mini-live"><div class="mini-title">SCREENSHOT QUALITY</div><div class="mini-bias wait" id="estimateQuality">UNKNOWN</div><div class="mini-meta" id="estimateDetails">Waiting for completed candles</div></div></div>
@@ -208,6 +212,7 @@ setInterval(updateTiming,500);updateTiming();
 // This is NOT a Binomo Crypto IDX feed or predictor.
 const MARKET_PAIRS=['BTC','ETH','BNB','SOL','XRP','ADA','DOGE','LINK','AVAX','LTC'];
 let binanceLastSuccess=0,binanceBusy=false;
+$('refreshMarket').addEventListener('click',()=>pollBinance());
 function binanceDisplay(direction,detail,extra){
  const el=$('binanceBias');el.textContent=direction;el.className='mini-bias '+direction.toLowerCase();
  $('binanceStatus').textContent=detail;$('binancePrice').textContent=extra;
@@ -230,6 +235,8 @@ async function getCoinBias(coin){
 async function pollBinance(){
  if(binanceBusy)return;
  binanceBusy=true;
+ $('refreshMarket').disabled=true;
+ $('marketConnection').textContent='Refreshing market data…';
  try{
   const results=await Promise.allSettled(MARKET_PAIRS.map(getCoinBias));
   const coins=results.map((r,i)=>r.status==='fulfilled'?r.value:{coin:MARKET_PAIRS[i],dir:'WAIT',unavailable:true});
@@ -245,20 +252,22 @@ async function pollBinance(){
   binanceDisplay(direction,up+' bullish · '+down+' bearish · '+available.length+'/'+total+' available',
     '10 selected major coins · 1m · '+stamp);
   drawAggregateGraph(available);
-  if(available.length>=7)binanceLastSuccess=Date.now();
- }catch(err){binanceDisplay('WAIT','Market breadth unavailable','Try refreshing Safari');}
- finally{binanceBusy=false}
+  $('marketFeeds').textContent=available.length+'/10';
+  if(available.length>=7){binanceLastSuccess=Date.now();$('marketConnection').textContent='Market feed connected';$('marketDot').className='live-dot ok'}
+  else{$('marketConnection').textContent='Insufficient feeds — check network';$('marketDot').className='live-dot bad'}
+ }catch(err){binanceDisplay('WAIT','Market breadth unavailable','Check connection and refresh');$('marketConnection').textContent='Connection error';$('marketDot').className='live-dot bad';$('marketFeeds').textContent='—';$('basketFive').textContent='—'}
+ finally{binanceBusy=false;$('refreshMarket').disabled=false}
 }
 function drawAggregateGraph(coins){
  const canvas=$('aggregateCanvas'),context=canvas.getContext('2d');
  const w=canvas.width,h=canvas.height,pad={l:45,r:14,t:17,b:30};
  context.clearRect(0,0,w,h);context.fillStyle='#091625';context.fillRect(0,0,w,h);
  const series=coins.filter(c=>c.closed&&c.closed.length>=35);
- if(series.length<7){context.fillStyle='#9db7d6';context.font='17px system-ui';context.fillText('WAIT · Need at least 7 live coin feeds',35,h/2);$('aggregateMove').textContent='WAIT';$('aggregateGraphStatus').textContent='Not enough fresh Binance candles to build the combined graph';return}
+ if(series.length<7){$('basketFive').textContent='—';context.fillStyle='#9db7d6';context.font='17px system-ui';context.fillText('WAIT · Need at least 7 live coin feeds',35,h/2);$('aggregateMove').textContent='WAIT';$('aggregateGraphStatus').textContent='Not enough fresh Binance candles to build the combined graph';return}
  // Align all symbols by exact closed 1-minute open timestamp, not array position.
  const byCoin=series.map(c=>new Map(c.closed.map(k=>[k.t,k.c])));
  const times=[...byCoin[0].keys()].filter(t=>byCoin.every(m=>m.has(t))).sort((a,b)=>a-b).slice(-60);
- if(times.length<20){$('aggregateMove').textContent='WAIT';$('aggregateGraphStatus').textContent='Insufficient overlapping closed 1-minute candles';return}
+ if(times.length<20){$('basketFive').textContent='—';$('aggregateMove').textContent='WAIT';$('aggregateGraphStatus').textContent='Insufficient overlapping closed 1-minute candles';return}
  const bases=byCoin.map(m=>m.get(times[0]));
  const values=times.map(t=>byCoin.reduce((sum,m,i)=>sum+100*m.get(t)/bases[i],0)/byCoin.length);
  const low=Math.min(...values),high=Math.max(...values),range=Math.max(high-low,.08),min=low-range*.18,max=high+range*.18;
@@ -267,6 +276,9 @@ function drawAggregateGraph(coins){
  for(let i=0;i<=4;i++){const v=min+(max-min)*i/4,yy=y(v);context.strokeStyle='#263c57';context.beginPath();context.moveTo(pad.l,yy);context.lineTo(w-pad.r,yy);context.stroke();context.fillStyle='#90a9c8';context.fillText(v.toFixed(2),pad.l-6,yy+4)}
  context.strokeStyle='#57708b';context.setLineDash([5,5]);context.beginPath();context.moveTo(pad.l,y(100));context.lineTo(w-pad.r,y(100));context.stroke();context.setLineDash([]);
  const change=values.at(-1)-100,positive=change>=0,lineColor=positive?'#34d399':'#fb7185';
+ const five=values.at(-1)/values.at(-6)*100-100;
+ $('basketFive').textContent=(five>=0?'+':'')+five.toFixed(2)+'%';
+ $('basketFive').style.color=five>=0?'#34d399':'#fb7185';
  const grad=context.createLinearGradient(0,pad.t,0,h-pad.b);grad.addColorStop(0,positive?'#10b98144':'#f43f5e44');grad.addColorStop(1,'#09162500');
  context.beginPath();values.forEach((v,i)=>i?context.lineTo(x(i),y(v)):context.moveTo(x(i),y(v)));context.lineTo(x(values.length-1),h-pad.b);context.lineTo(x(0),h-pad.b);context.closePath();context.fillStyle=grad;context.fill();
  context.beginPath();values.forEach((v,i)=>i?context.lineTo(x(i),y(v)):context.moveTo(x(i),y(v)));context.strokeStyle=lineColor;context.lineWidth=3;context.stroke();
@@ -280,5 +292,9 @@ function drawAggregateGraph(coins){
 }
 pollBinance();setInterval(pollBinance,30000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)pollBinance()});
-setInterval(()=>{if(binanceLastSuccess&&Date.now()-binanceLastSuccess>90000)binanceDisplay('WAIT','Market data stale · reconnecting','No current market breadth')},5000);
+setInterval(()=>{
+ const age=binanceLastSuccess?Math.floor((Date.now()-binanceLastSuccess)/1000):null;
+ $('marketAge').textContent=age===null?'—':age<60?age+'s':Math.floor(age/60)+'m '+age%60+'s';
+ if(age===null||age>90){binanceDisplay('WAIT','Market data unavailable or stale','No current market breadth');$('marketDot').className='live-dot bad';$('marketConnection').textContent=age===null?'Awaiting live data':'Stale data — refresh needed';$('basketFive').textContent='—'}
+},5000);
 </script></body></html>
