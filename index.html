@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b0f19"><title>Crypto IDX • Vision Lab</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b0f19"><title>Crypto IDX • Pro Terminal V2</title>
 <style>
 :root{--bg:#0b0f19;--panel:#111827;--line:#263449;--muted:#9caec7;--green:#10b981;--red:#f43f5e;--blue:#3b82f6;--violet:#8b5cf6;--text:#eaf2ff}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#162849 0,transparent 45%),var(--bg);color:var(--text);font:14px system-ui,-apple-system,"Segoe UI",sans-serif}header{position:sticky;top:0;z-index:5;background:#0b0f19e9;backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:15px max(16px,calc((100vw - 1250px)/2))}.brand{font-weight:900;letter-spacing:.4px;font-size:18px}.brand b{color:#60a5fa}small,.sub,.muted{color:var(--muted)}main{max-width:1250px;margin:auto;padding:18px 14px 60px}.top{display:flex;justify-content:space-between;gap:10px;align-items:center}.tag{border:1px solid #365371;border-radius:30px;padding:7px 10px;background:#132339;color:#bcd4f6;font-size:11px;font-weight:800}.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:14px}.card{background:linear-gradient(155deg,#152137ec,#101826ef);border:1px solid #2a3a54;border-radius:19px;padding:17px;box-shadow:0 12px 35px #0002;min-width:0;margin-bottom:14px}.card h2{margin:0 0 13px;font-size:15px}.intro{border-left:3px solid #60a5fa;padding:10px 12px;background:#12223a;border-radius:8px;margin-bottom:14px;line-height:1.5}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.btn,button{background:linear-gradient(110deg,#2563eb,#7c3aed);border:0;border-radius:11px;color:white;padding:12px 15px;font-weight:750;cursor:pointer;min-height:43px}button.secondary{background:#25354e;border:1px solid #40506a}button:disabled{opacity:.45;cursor:not-allowed}input[type=file],textarea{width:100%;background:#0c1627;border:1px solid #354762;border-radius:11px;color:var(--text);padding:12px;font:inherit}input[type=file]{max-width:100%}textarea{min-height:100px;resize:vertical;font-family:ui-monospace,monospace;font-size:11px}label{display:block;margin-bottom:7px;color:#bbcae0;font-weight:650}.canvaswrap{position:relative;background:#090f1c;border:1px solid #31425e;border-radius:13px;overflow:hidden;margin:12px 0;touch-action:none}#imageCanvas{display:block;width:100%;height:auto;touch-action:none;user-select:none}.hint{font-size:12px;line-height:1.5;color:#9fb1ca}.status{padding:11px 13px;background:#0d1d32;border:1px solid #2a4464;border-radius:11px;line-height:1.5;margin:12px 0;white-space:pre-wrap}.status.warn{border-color:#765631;color:#ffce89;background:#30251a}.status.ok{border-color:#17684f;color:#9cf0cf;background:#0c2b26}.big{font-size:clamp(48px,8vw,84px);line-height:1;font-weight:950;letter-spacing:-2px;margin:14px 0}.big.up{color:var(--green);text-shadow:0 0 35px #10b98145}.big.down{color:var(--red);text-shadow:0 0 35px #f43f5e45}.big.wait{color:#a7b5d1}.metricgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{background:#0d192a;border:1px solid #253650;border-radius:12px;padding:12px}.metric strong{display:block;font-size:22px;margin-top:6px;font-variant-numeric:tabular-nums}.meter{height:9px;background:#27354b;border-radius:9px;overflow:hidden;margin:8px 0 12px}.fill{height:100%;width:0%;transition:width .35s}.g{background:var(--green)}.r{background:var(--red)}#plot{width:100%;height:270px;display:block;background:#091321;border-radius:12px}.tablewrap{overflow:auto;max-height:320px}table{border-collapse:collapse;width:100%;font-size:12px;white-space:nowrap}th,td{text-align:right;border-bottom:1px solid #26354b;padding:9px 8px}th:first-child,td:first-child{text-align:left}th{position:sticky;top:0;background:#17243a;color:#abc0db}footer{border-top:1px solid #293c54;color:#9baec9;padding:18px;line-height:1.6}.hidden{display:none}.badge{display:inline-block;padding:5px 8px;border-radius:7px;background:#263a56;color:#c6d9f7;font-size:11px;font-weight:800}.count{color:#8cb6ff;font-size:20px;font-weight:850}::-webkit-scrollbar{height:8px;width:8px}::-webkit-scrollbar-thumb{background:#395476;border-radius:10px}@media(max-width:800px){.grid{grid-template-columns:1fr}header{padding:13px 15px}.brand{font-size:15px}.card{padding:14px;border-radius:15px}main{padding:12px 10px 40px}.top{align-items:flex-start}.metric strong{font-size:19px}#plot{height:220px}button{flex:1}#imageCanvas{min-height:90px}}
@@ -15,9 +15,22 @@
 .aggregate-chart{margin-top:11px;padding:10px;background:#091625;border:1px solid #2c4967;border-radius:12px}.aggregate-chart canvas{display:block;width:100%;height:145px}.aggregate-top{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:5px}.aggregate-top b{font-size:11px;color:#d6e7ff}.aggregate-top span{font-size:10px;color:#9db7d6}.aggregate-note{font-size:10px;line-height:1.5;color:#94a9c5;margin-top:5px}@media(max-width:390px){.signal-head{grid-template-columns:1fr 1fr;gap:7px}.mini-live{padding:8px}}
 
 .upgrade-tools{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:10px 0}.upgrade-tools button{padding:9px 13px;font-size:12px}.live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#f59e0b;margin-right:5px}.live-dot.ok{background:#10b981;box-shadow:0 0 9px #10b98199}.live-dot.bad{background:#f43f5e}.upgrade-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}.upgrade-stat{border:1px solid #2b4763;background:#0b1a2c;border-radius:10px;padding:10px 7px;text-align:center}.upgrade-stat strong{display:block;font-size:18px;margin-top:4px}.upgrade-stat small{font-size:10px;color:#9cb3d1}.upgrade-tip{font-size:11px;color:#aabdd6;line-height:1.5}@media(max-width:380px){.upgrade-stats{gap:4px}.upgrade-stat strong{font-size:15px}}
+
+/* Terminal V2 responsive premium additions */
+:root{--bg:#080e1b;--panel:#101b2d;--line:#2a4160}
+body{background:radial-gradient(ellipse at 15% 0%,#182d4a 0,transparent 43%),radial-gradient(ellipse at 95% 12%,#15203c 0,transparent 35%),#080e1b}
+.card{background:linear-gradient(140deg,#14243b,#0d1728);border-color:#2a4260;box-shadow:0 16px 38px #0003}
+header{background:#080f1eea}.brand{letter-spacing:.8px}.brand b{color:#63d6ff}
+.v2-hero{padding:18px 19px;border:1px solid #285275;border-radius:19px;background:linear-gradient(125deg,#122a45,#101c32 60%,#17203a);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.v2-hero strong{font-size:22px;letter-spacing:.5px}.v2-hero p{color:#a9c3dc;font-size:12px;line-height:1.5;margin:6px 0 0}.v2-mark{font-size:10px;letter-spacing:1.5px;color:#66e4c2;font-weight:900}
+.v2-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.v2-tile{padding:13px;background:#0a192b;border:1px solid #2a405b;border-radius:13px;min-width:0}.v2-tile small{font-size:11px}.v2-tile strong{font-size:22px;display:block;margin:7px 0 3px;font-variant-numeric:tabular-nums}.v2-tile span{color:#a9bdd6;font-size:11px;line-height:1.5;display:block}
+.v2-up{color:#30dca0}.v2-down{color:#ff6c84}.v2-wait{color:#c3cde0}.v2-bar{height:13px;border-radius:20px;background:#26374b;overflow:hidden;display:flex;margin:13px 0}.v2-bar>div{transition:width .35s}.v2-bar .bull{background:#10b981}.v2-bar .bear{background:#f43f5e}
+.v2-legend{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:11px;color:#b6cbe3}.v2-note{font-size:11px;line-height:1.6;color:#9db4ce;margin:9px 0 0}
+.v2-accuracy{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.v2-accuracy .v2-tile{text-align:center;padding:11px 6px}.v2-accuracy strong{font-size:20px}.v2-history{max-height:170px;overflow:auto;font-size:11px;color:#bfd2e8}.v2-history>div{padding:8px;border-bottom:1px solid #2a3d56}
+@media(min-width:950px){.v2-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}@media(max-width:390px){.v2-tile strong{font-size:18px}.v2-hero strong{font-size:19px}}
 </style></head><body>
-<header><div class="top"><div><div class="brand">◇ CRYPTO IDX <b>VISION LAB</b></div><small>Binomo screenshot analysis + live Binance 10-coin market breadth</small></div><span class="tag" id="dataBadge">● NO DATA</span></div></header>
-<main>
+<header><div class="top"><div><div class="brand">◇ CRYPTO IDX <b>PRO TERMINAL V2</b></div><small>Binomo screenshot analysis + live Binance 10-coin market breadth</small></div><span class="tag" id="dataBadge">● NO DATA</span></div></header>
+<main><div class="v2-hero"><div><div class="v2-mark">PRO MARKET RESEARCH · V2</div><strong>One terminal. Two independent markets.</strong><p>Binomo screenshot estimates + Binance 10-coin live market breadth. No automatic trades or guaranteed next-candle predictions.</p></div><span class="tag">● TERMINAL V2</span></div>
 <div class="intro"><b>Binomo chart analysis, not a live Binomo feed.</b> Upload a screenshot and select the candles. The app estimates relative candle shapes locally; exact OHLC prices, timestamps and 1-minute spacing cannot be verified from an image. UP/DOWN/WAIT describes indicator bias, not a trade recommendation.</div>
 <div class="grid">
 <section>
@@ -34,6 +47,15 @@
 </section>
 <section>
 <div class="card"><h2>Research bias · 1-minute context</h2><span class="badge" id="source">NO DATA</span><div class="signal-head"><div><div class="big wait" id="bias">WAIT</div><div class="hint" id="idxMiniLabel">BINOMO · SCREENSHOT ONLY</div></div><div class="mini-live" aria-label="Independent live Binance reference"><div class="mini-title">BINANCE · MARKET BREADTH</div><div class="mini-bias wait" id="binanceBias">WAIT</div><div class="mini-meta" id="binanceStatus">Loading 10 major cryptocurrencies…</div><div class="coin-breadth" aria-label="Bullish and bearish coin counts"><div class="up-part" id="breadthUp" style="width:0%"></div><div class="down-part" id="breadthDown" style="width:0%"></div></div><div class="mini-meta" id="binancePrice">10 major USDT pairs · 1m closed candles</div><div class="coin-list" id="coinList"></div></div></div><div class="hint" id="reason">Upload a screenshot or verified CSV to begin. WAIT means insufficient or uncertain evidence.</div><div style="margin-top:18px">Bullish indicator agreement <span style="float:right" id="upScore">—</span></div><div class="meter"><div class="fill g" id="upBar"></div></div>Bearish indicator agreement <span style="float:right" id="downScore">—</span><div class="meter"><div class="fill r" id="downBar"></div></div><p class="hint">These are indicator vote counts, not probabilities, win rates or guaranteed outcomes.</p></div>
+<div class="card" id="v2IndicatorPanel"><h2>◈ Advanced indicator suite · Supertrend / ADX / Bands / Stoch RSI</h2><div class="v2-grid">
+<div class="v2-tile"><small>Supertrend (10, 3)</small><strong id="v2Super">—</strong><span id="v2SuperInfo">Awaiting completed candles</span></div>
+<div class="v2-tile"><small>ADX (14) · Trend strength</small><strong id="v2Adx">—</strong><span id="v2AdxInfo">Not a direction signal</span></div>
+<div class="v2-tile"><small>Bollinger Bands (20, 2)</small><strong id="v2Bb">—</strong><span id="v2BbInfo">Middle / upper / lower</span></div>
+<div class="v2-tile"><small>Stochastic RSI (14, 14)</small><strong id="v2Stoch">—</strong><span id="v2StochInfo">Momentum oscillator</span></div>
+</div><p class="v2-note" id="v2IndicatorNote">Calculated from the currently selected Binomo screenshot reconstruction or imported CSV. Screenshot values are approximate and may not represent actual market prices.</p></div>
+<div class="card" id="v2StrengthCard"><h2>◈ Binance · 10-Coin Market Strength Meter</h2><div class="v2-grid"><div class="v2-tile"><small>Bullish coins</small><strong class="v2-up" id="v2Bull">—</strong><span>Independent 1m indicator biases</span></div><div class="v2-tile"><small>Bearish coins</small><strong class="v2-down" id="v2Bear">—</strong><span>Selected major USDT pairs</span></div><div class="v2-tile"><small>Neutral / unavailable</small><strong id="v2Neutral">—</strong><span>Not forced into a direction</span></div><div class="v2-tile"><small>Market breadth</small><strong id="v2Strength">WAIT</strong><span id="v2StrengthInfo">Awaiting Binance feed</span></div></div>
+<div class="v2-bar" aria-label="Bullish bearish market breadth"><div class="bull" id="v2BullBar" style="width:0%"></div><div class="bear" id="v2BearBar" style="width:0%"></div></div><div class="v2-legend"><span>Green = bullish</span><span>Red = bearish</span><span>Remaining = neutral / unavailable</span></div><p class="v2-note">Breadth describes 10 selected Binance spot coins, not every cryptocurrency and not Binomo Crypto IDX.</p></div>
+<div class="card" id="v2AccuracyCard"><h2>◈ Historical Accuracy Tracker · Manually recorded</h2><div class="v2-accuracy"><div class="v2-tile"><small>Recorded</small><strong id="v2Count">0</strong></div><div class="v2-tile"><small>Direction matches</small><strong id="v2Matches">0</strong></div><div class="v2-tile"><small>Match rate</small><strong id="v2Rate">—</strong></div></div><p class="v2-note">After a target candle closes, tap Actual UP / DOWN / FLAT in the existing Next Candle panel. WAIT estimates are excluded from directional match rate. Outcomes are self-reported and stored on this device only; not independently verified, not predictive accuracy.</p><div class="v2-history" id="v2History">No observations recorded.</div><button class="secondary" type="button" id="v2ClearHistory">Clear local history</button></div>
 <div class="card" id="aggregateGraphCard"><h2>📈 Binance · All 10 Coins Combined Graph</h2>
 <div class="upgrade-tools"><button type="button" class="secondary" id="refreshMarket">↻ Refresh Binance now</button><span class="upgrade-tip"><span class="live-dot" id="marketDot"></span><span id="marketConnection">Connecting to Binance…</span></span></div>
 <div class="upgrade-stats"><div class="upgrade-stat"><small>Coin feeds online</small><strong id="marketFeeds">—</strong></div><div class="upgrade-stat"><small>Basket 5m change</small><strong id="basketFive">—</strong></div><div class="upgrade-stat"><small>Last successful update</small><strong id="marketAge">—</strong></div></div><div class="aggregate-top"><b>Equal-weight crypto basket · 1-minute candles</b><span id="aggregateMove">WAIT · Loading</span></div><div class="aggregate-chart"><canvas id="aggregateCanvas" width="760" height="220" aria-label="Single combined line graph of normalized returns across ten Binance cryptocurrencies"></canvas><div class="aggregate-note" id="aggregateGraphStatus">Fetching completed Binance candles…</div></div><p class="hint">One combined graph, not ten separate charts. Each coin is rebased to 100, then averaged equally. This is a synthetic reference index, not a tradeable Binance instrument and not Binomo Crypto IDX.</p></div>
@@ -252,6 +274,7 @@ async function pollBinance(){
   binanceDisplay(direction,up+' bullish · '+down+' bearish · '+available.length+'/'+total+' available',
     '10 selected major coins · 1m · '+stamp);
   drawAggregateGraph(available);
+  v2UpdateBreadth(coins);
   $('marketFeeds').textContent=available.length+'/10';
   if(available.length>=7){binanceLastSuccess=Date.now();$('marketConnection').textContent='Market feed connected';$('marketDot').className='live-dot ok'}
   else{$('marketConnection').textContent='Insufficient feeds — check network';$('marketDot').className='live-dot bad'}
@@ -297,4 +320,88 @@ setInterval(()=>{
  $('marketAge').textContent=age===null?'—':age<60?age+'s':Math.floor(age/60)+'m '+age%60+'s';
  if(age===null||age>90){binanceDisplay('WAIT','Market data unavailable or stale','No current market breadth');$('marketDot').className='live-dot bad';$('marketConnection').textContent=age===null?'Awaiting live data':'Stale data — refresh needed';$('basketFive').textContent='—'}
 },5000);
+
+// Pro Terminal V2: additional descriptive indicators; not used to fabricate probabilities.
+function v2IndicatorCalc(a){
+ if(a.length<40)return null;
+ const n=a.length,close=a.map(x=>x.c),high=a.map(x=>x.h),low=a.map(x=>x.l);
+ const tr=a.map((x,i)=>i?Math.max(x.h-x.l,Math.abs(x.h-close[i-1]),Math.abs(x.l-close[i-1])):x.h-x.l);
+ function wilder(values,period){let out=Array(values.length).fill(null),sum=0;for(let i=0;i<period;i++)sum+=values[i];out[period-1]=sum/period;for(let i=period;i<values.length;i++)out[i]=(out[i-1]*(period-1)+values[i])/period;return out}
+ const atr=wilder(tr,10),upper=[],lower=[],trend=[],direction=[];
+ for(let i=0;i<n;i++){
+  if(atr[i]==null){upper.push(null);lower.push(null);trend.push(null);direction.push(null);continue}
+  const mid=(high[i]+low[i])/2,bu=mid+3*atr[i],bl=mid-3*atr[i];
+  const pu=upper[i-1],pl=lower[i-1];
+  upper[i]=(pu!=null&&bu>=pu&&close[i-1]<=pu)?pu:bu;
+  lower[i]=(pl!=null&&bl<=pl&&close[i-1]>=pl)?pl:bl;
+  if(i===9)direction[i]=close[i]>=mid?1:-1;
+  else direction[i]=direction[i-1]===-1?(close[i]>upper[i] ? 1:-1):(close[i]<lower[i]?-1:1);
+  trend[i]=direction[i]===1?lower[i]:upper[i];
+ }
+ // Wilder ADX: seed smoothed TR/+DM/-DM, then seed ADX from 14 DX readings.
+ const period=14,pdm=Array(n).fill(0),mdm=Array(n).fill(0);
+ for(let i=1;i<n;i++){let u=high[i]-high[i-1],d=low[i-1]-low[i];pdm[i]=u>d&&u>0?u:0;mdm[i]=d>u&&d>0?d:0}
+ let adx=null,diPlus=null,diMinus=null,st=0,sp=0,sm=0,dx=[];
+ for(let i=1;i<n;i++){
+  if(i<=period){st+=tr[i];sp+=pdm[i];sm+=mdm[i];if(i<period)continue}
+  else{st=st-st/period+tr[i];sp=sp-sp/period+pdm[i];sm=sm-sm/period+mdm[i]}
+  diPlus=st?100*sp/st:0;diMinus=st?100*sm/st:0;
+  let den=diPlus+diMinus,curDX=den?100*Math.abs(diPlus-diMinus)/den:0;dx.push(curDX);
+  if(dx.length===period)adx=dx.reduce((a,b)=>a+b,0)/period;
+  else if(dx.length>period)adx=(adx*(period-1)+curDX)/period;
+ }
+ const last=close.at(-1),last20=close.slice(-20),mean=last20.reduce((a,b)=>a+b,0)/20;
+ const sd=Math.sqrt(last20.reduce((a,b)=>a+(b-mean)**2,0)/20),bandUpper=mean+2*sd,bandLower=mean-2*sd;
+ const rsi=Array(n).fill(null);let gain=0,loss=0;
+ for(let i=1;i<n;i++){
+  let d=close[i]-close[i-1],g=Math.max(0,d),l=Math.max(0,-d);
+  if(i<=14){gain+=g;loss+=l;if(i===14){gain/=14;loss/=14}}
+  else{gain=(gain*13+g)/14;loss=(loss*13+l)/14}
+  if(i>=14)rsi[i]=loss===0?(gain===0?50:100):100-100/(1+gain/loss);
+ }
+ const rsiWindow=rsi.slice(-14),rMin=Math.min(...rsiWindow),rMax=Math.max(...rsiWindow);
+ const stoch=rMax===rMin?50:100*(rsi.at(-1)-rMin)/(rMax-rMin);
+ return {superDir:direction.at(-1)===1?'UP':'DOWN',superValue:trend.at(-1),adx,diPlus,diMinus,bbPosition:sd===0?'FLAT':last>bandUpper?'ABOVE':last<bandLower?'BELOW':'INSIDE',bandUpper,bandLower,bandMiddle:mean,stoch};
+}
+function v2UpdateIndicators(){
+ const data=v2IndicatorCalc(candles),ids=['v2Super','v2Adx','v2Bb','v2Stoch'];
+ if(!data){for(const id of ids)$(id).textContent='—';$('v2IndicatorNote').textContent='Need at least 40 completed candles. Screenshot-based OHLC values and timeframe are estimates.';return}
+ $('v2Super').textContent=data.superDir;$('v2Super').className=data.superDir==='UP'?'v2-up':'v2-down';$('v2SuperInfo').textContent='Relative line '+fmt(data.superValue);
+ $('v2Adx').textContent=data.adx==null?'—':data.adx.toFixed(1);$('v2AdxInfo').textContent=data.adx==null?'Insufficient history':data.adx>=25?'Stronger trend · +DI '+data.diPlus.toFixed(1)+' / −DI '+data.diMinus.toFixed(1):'Weak / ranging trend · ADX below 25';
+ $('v2Bb').textContent=data.bbPosition;$('v2BbInfo').textContent='L '+fmt(data.bandLower)+' · M '+fmt(data.bandMiddle)+' · U '+fmt(data.bandUpper);
+ $('v2Stoch').textContent=data.stoch.toFixed(1);$('v2StochInfo').textContent=data.stoch>80?'High momentum zone':data.stoch<20?'Low momentum zone':'Middle momentum zone';
+ $('v2IndicatorNote').textContent=kind==='screenshot'?'SCREENSHOT ONLY · Relative candle reconstruction; indicator values and timeframe may be inaccurate.': 'Imported historical OHLC data · Verify time spacing and source. No live Binomo feed.';
+}
+const v2PriorRender=render;
+render=function(){v2PriorRender();v2UpdateIndicators()};
+function v2UpdateBreadth(coins){let up=coins.filter(x=>x.dir==='UP'&&!x.unavailable).length,down=coins.filter(x=>x.dir==='DOWN'&&!x.unavailable).length,neutral=coins.length-up-down;
+ $('v2Bull').textContent=up+'/10';$('v2Bear').textContent=down+'/10';$('v2Neutral').textContent=neutral+'/10';$('v2BullBar').style.width=up*10+'%';$('v2BearBar').style.width=down*10+'%';
+ let state=up>=6?'UP':down>=6?'DOWN':'WAIT';if(coins.filter(x=>!x.unavailable).length<7)state='WAIT';
+ $('v2Strength').textContent=state;$('v2Strength').className=state==='UP'?'v2-up':state==='DOWN'?'v2-down':'v2-wait';$('v2StrengthInfo').textContent=up+' bullish · '+down+' bearish · '+neutral+' neutral/unavailable';
+}
+// Local, manual observation log. Stored only after a completed target window.
+const V2_HISTORY_KEY='crypto_idx_v2_manual_observations';
+function v2LoadHistory(){try{const x=JSON.parse(localStorage.getItem(V2_HISTORY_KEY)||'[]');return Array.isArray(x)?x.filter(v=>v&&typeof v==='object').slice(-100):[]}catch{return []}}
+let v2History=v2LoadHistory();
+function v2DrawHistory(){const directional=v2History.filter(x=>x.pred==='UP'||x.pred==='DOWN'),matched=directional.filter(x=>x.pred===x.actual).length;
+ $('v2Count').textContent=v2History.length;$('v2Matches').textContent=matched+'/'+directional.length;$('v2Rate').textContent=directional.length?(100*matched/directional.length).toFixed(1)+'%':'—';
+ const h=$('v2History');h.replaceChildren();if(!v2History.length){h.textContent='No observations recorded.';return}
+ for(const x of v2History.slice().reverse().slice(0,15)){let row=document.createElement('div');row.textContent=new Date(x.target).toLocaleString()+' · estimate '+x.pred+' · actual '+x.actual+' · '+(x.pred==='WAIT'?'excluded':x.pred===x.actual?'MATCH':'NOT MATCH');h.append(row)}
+}
+$('v2ClearHistory').onclick=()=>{if(!confirm('Clear manually recorded accuracy history on this device?'))return;v2History=[];try{localStorage.removeItem(V2_HISTORY_KEY)}catch{}v2DrawHistory()};
+for(const [id,actual] of [['actualUp','UP'],['actualDown','DOWN'],['actualFlat','FLAT']]){
+ const button=$(id),oldHandler=button.onclick;
+ button.onclick=function(){
+  const eligible=targetMinuteStart&&analysisFinishedAt&&Date.now()>=targetMinuteStart+60000;
+  const pred=eligible&&analysisFinishedAt<targetMinuteStart?(calc(candles)?.dir||'WAIT'):'WAIT';
+  if(oldHandler)oldHandler.call(this);
+  if(!eligible)return;
+  if(v2History.some(x=>x.target===targetMinuteStart)){$('estimateReview').textContent+=' Already recorded this target window; duplicate ignored.';return}
+  v2History.push({target:targetMinuteStart,pred,actual,recorded:Date.now()});v2History=v2History.slice(-100);
+  try{localStorage.setItem(V2_HISTORY_KEY,JSON.stringify(v2History))}catch{}
+  v2DrawHistory();
+ }
+}
+v2DrawHistory();v2UpdateIndicators();
+
 </script></body></html>
