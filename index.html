@@ -34,7 +34,22 @@ header{background:#080f1eea}.brand{letter-spacing:.8px}.brand b{color:#63d6ff}
 
 /* V3: compact, mobile-first market research tools */
 .v3-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.v3-cell{background:#0a192b;border:1px solid #2d4564;border-radius:13px;padding:12px;min-width:0}.v3-cell strong{display:block;font-size:19px;margin:7px 0}.v3-cell small{font-size:11px;color:#a9bed8}.v3-actions{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}.v3-actions button{flex:1}.v3-meter{height:11px;background:#25364c;border-radius:12px;overflow:hidden;margin:10px 0}.v3-meter>div{height:100%;width:0;background:linear-gradient(90deg,#38bdf8,#f59e0b,#f43f5e);transition:width .3s}.v3-status{font-size:12px;line-height:1.6;color:#a9c1df}.v3-pills{display:flex;flex-wrap:wrap;gap:7px}.v3-pill{padding:7px 10px;background:#152a44;border:1px solid #355375;border-radius:9px;font-size:11px}.v3-focus #v3FullCard{position:fixed;inset:0;z-index:30;margin:0;border-radius:0;overflow-y:auto;padding:calc(20px + env(safe-area-inset-top)) 15px calc(20px + env(safe-area-inset-bottom));background:#091323}.v3-focus #v3FullCard .aggregate-chart canvas{height:35vh}.v3-focus{overflow:hidden}@media(max-width:450px){.v3-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.v3-cell strong{font-size:16px}.v3-actions button{font-size:12px}}
-</style></head><body>
+</style>
+<style id="companion-style">
+#companionLaunch{position:fixed;right:14px;bottom:18px;z-index:80;background:#2563eb;color:white;border:1px solid #93c5fd;border-radius:999px;padding:13px 18px;font-weight:800;box-shadow:0 8px 30px #0009;cursor:pointer}
+#companionShell{display:none;position:fixed;inset:0;z-index:70;background:#0b0f19;overflow:auto;padding:12px}
+body.companion-active #companionShell{display:block}
+body.companion-active #companionLaunch{display:none}
+#companionBar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:7px 0 12px}
+#companionBar button,#companionBar a{background:#182943;color:#eaf2ff;border:1px solid #385474;padding:10px 12px;border-radius:9px;font-weight:700;text-decoration:none;cursor:pointer}
+#companionGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;height:calc(100dvh - 95px);min-height:500px}
+.companionPane{border:1px solid #334155;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;background:#111827;min-height:0}
+.companionPane h3{margin:0;padding:11px;font-size:14px;background:#17243a}
+.companionPane iframe{border:0;flex:1;width:100%;background:#fff;min-height:280px}
+#companionHint{padding:9px 12px;font-size:12px;line-height:1.4;color:#cbd5e1;background:#17243a}
+@media(max-width:700px){#companionGrid{grid-template-columns:1fr;height:auto}.companionPane{height:57dvh;min-height:340px}.companionPane:last-child{height:68dvh}#companionBar{font-size:12px}}
+</style>
+</head><body>
 <header><div class="top"><div><div class="brand">◇ CRYPTO IDX <b>PRO TERMINAL V2.1</b></div><small>Binomo screenshot analysis + live Binance 10-coin market breadth</small></div><span class="tag" id="dataBadge">● NO DATA</span></div></header>
 <main><div class="v2-hero"><div><div class="v2-mark">PRO MARKET RESEARCH · V2</div><strong>One terminal. Two independent markets.</strong><p>Binomo screenshot estimates + Binance 10-coin live market breadth. No automatic trades or guaranteed next-candle predictions.</p></div><span class="tag">● TERMINAL V2</span></div>
 <div class="intro"><b>Binomo chart analysis, not a live Binomo feed.</b> Upload a screenshot and select the candles. The app estimates relative candle shapes locally; exact OHLC prices, timestamps and 1-minute spacing cannot be verified from an image. UP/DOWN/WAIT describes indicator bias, not a trade recommendation.</div>
@@ -496,4 +511,34 @@ $('v3Backtest').onclick=()=>{const eligible=v3Coins.filter(c=>c.closed.length>=4
 $('v3Focus').onclick=()=>{document.body.classList.toggle('v3-focus');$('v3Focus').textContent=document.body.classList.contains('v3-focus')?'✕ Exit full-screen monitor':'⛶ Full-screen monitor';if(v3Coins.length)v3Draw(v3Coins)};
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.classList.contains('v3-focus'))$('v3Focus').click()});
 
-</script></body></html>
+</script>
+<button id="companionLaunch" type="button">◫ Binomo Companion</button>
+<section id="companionShell" aria-label="Binomo Companion Mode">
+ <div id="companionBar"><strong>◫ BINOMO COMPANION · V3</strong><div style="display:flex;gap:6px;flex-wrap:wrap">
+ <a href="https://binomo.com/" target="_blank" rel="noopener noreferrer">↗ Open Binomo</a>
+ <button id="companionReload" type="button">↻ Retry preview</button>
+ <button id="companionClose" type="button">✕ Exit Companion</button></div></div>
+ <div id="companionGrid">
+  <div class="companionPane"><h3>BINOMO · Website preview</h3><iframe id="companionBinomo" title="Binomo website preview" loading="lazy" referrerpolicy="no-referrer" src="about:blank"></iframe><div id="companionHint">Binomo may block embedding for security. If blank or blocked, use “Open Binomo” above. No direct Binomo account, price, or trade connection.</div></div>
+  <div class="companionPane"><h3>CRYPTO IDX · Your existing V3 dashboard</h3><iframe id="companionMonitor" title="Crypto IDX Pro Terminal V3" src="about:blank"></iframe><div id="companionHint">This is your existing dashboard, shown separately. Binance reference prices are not Binomo Crypto IDX quotes.</div></div>
+ </div>
+</section>
+<script id="companion-script">
+(function(){
+const launch=document.getElementById('companionLaunch'),shell=document.getElementById('companionShell');
+const monitor=document.getElementById('companionMonitor'),binomo=document.getElementById('companionBinomo');
+const snapshot='<!doctype html>'+document.documentElement.outerHTML.replace(/<script id="companion-script">[\s\S]*?<\/script>/,'');
+let blobUrl=null;
+function open(){
+ if(!blobUrl){blobUrl=URL.createObjectURL(new Blob([snapshot],{type:'text/html'}));}
+ monitor.src=blobUrl;
+ binomo.src='https://binomo.com/';
+ document.body.classList.add('companion-active');
+}
+function close(){document.body.classList.remove('companion-active');monitor.src='about:blank';binomo.src='about:blank'}
+launch.addEventListener('click',open);
+document.getElementById('companionClose').addEventListener('click',close);
+document.getElementById('companionReload').addEventListener('click',()=>{binomo.src='about:blank';setTimeout(()=>binomo.src='https://binomo.com/',150)});
+})();
+</script>
+</body></html>

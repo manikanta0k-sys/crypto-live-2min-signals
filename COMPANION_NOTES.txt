@@ -1,0 +1,1 @@
+Companion Mode: launch from floating button. Binomo may refuse iframe embedding. Use Open Binomo fallback. Mobile browsers cannot guarantee true split-screen between two independent websites. Binance data is not Binomo IDX data.
