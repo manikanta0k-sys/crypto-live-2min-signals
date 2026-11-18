@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<meta name="description" content="Educational 1-minute next-candle direction analyzer using live and user-supplied OHLC market data. No orders placed.">
+<title>Smart Next Candle Bot V1.1 · Screenshot + Live Demo</title>
+<style>
+:root{--bg:#080e1b;--card:#111c2e;--card2:#15223a;--border:#263852;--text:#eef5ff;--muted:#94a7c1;--green:#16d39a;--red:#ff5d7b;--blue:#77b5ff;--yellow:#ffc677;--radius:17px;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:radial-gradient(circle at top right,#112947,#080e1b 50%);color:var(--text);min-height:100vh}button,input,textarea,select{font:inherit}button,select,input,textarea{outline-offset:2px}button{cursor:pointer}header,.wrap{max-width:1040px;margin:auto;padding:0 15px}header{padding-top:20px;padding-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px}.brand{font-size:19px;font-weight:850;letter-spacing:-.4px}.brand span{color:var(--blue)}.sub{color:var(--muted);font-size:11px;letter-spacing:.04em;text-transform:uppercase}.badge{border-radius:99px;padding:6px 10px;border:1px solid var(--border);color:var(--muted);font-size:12px;white-space:nowrap}.badge.on{color:var(--green);border-color:#1a8868}.badge.bad{color:var(--red)}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px}.card{background:linear-gradient(150deg,rgba(21,35,57,.98),rgba(13,24,40,.98));border:1px solid var(--border);border-radius:var(--radius);padding:17px;min-width:0}.wide{grid-column:span 12}.main{grid-column:span 7}.side{grid-column:span 5}.half{grid-column:span 6}.label{font-size:11px;letter-spacing:1.15px;text-transform:uppercase;color:var(--muted);font-weight:750}.top-line{display:flex;justify-content:space-between;gap:8px;align-items:center}.signal{font-size:clamp(52px,12vw,104px);font-weight:950;line-height:1.1;letter-spacing:-4px;margin-top:12px}.up{color:var(--green)}.down{color:var(--red)}.no{color:var(--muted);font-size:38px;letter-spacing:-1.5px}.description{font-size:13px;color:var(--muted);margin-top:7px;line-height:1.5}.bigtime{font-size:33px;font-weight:850;letter-spacing:-1px}.time{font-variant-numeric:tabular-nums}.small{font-size:12px;color:var(--muted)}.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:17px}.stat{background:#0b1729;border:1px solid #23354d;border-radius:12px;padding:10px}.stat strong{display:block;font-size:18px;overflow-wrap:anywhere}.stat .small{display:block;font-size:10px}.strength-track{height:7px;background:#24354d;border-radius:10px;overflow:hidden;margin:11px 0 6px}.strength-fill{height:100%;width:0;background:var(--blue);transition:width .2s}.pill{background:#1d304c;border-radius:7px;padding:3px 7px;color:#c8dcf8;font-size:11px;font-weight:600}.muted{color:var(--muted)}.warning{border:1px solid #695038;background:#2a231c;padding:10px 12px;border-radius:11px;color:#ffcf98;font-size:12px;margin-top:13px}.sectionhead{font-weight:790;font-size:14px;margin-bottom:12px}.controls{display:flex;gap:10px;align-items:end;flex-wrap:wrap}.field{display:flex;flex-direction:column;gap:5px;flex:1;min-width:145px}.field span{color:var(--muted);font-size:11px}select,input,textarea{background:#0b1729;border:1px solid #365071;color:var(--text);border-radius:10px;padding:10px 11px;width:100%;max-width:100%}textarea{min-height:85px;font-size:12px;resize:vertical}.btn{border:1px solid #436083;padding:10px 12px;border-radius:10px;color:var(--text);background:#203656;font-weight:750}.btn.primary{background:#265dec;border-color:#3771fa}.btn.secondary{background:transparent}.btn.danger{color:var(--red);border-color:#6a3547}.btn:disabled{opacity:.55;cursor:not-allowed}.mode-tabs{display:flex;gap:6px;margin-bottom:13px}.tab{flex:1;padding:9px 5px;font-size:12px;border-radius:10px;border:1px solid #395072;background:#0b1729;color:var(--muted);font-weight:700}.tab.active{background:#233e68;color:#fff;border-color:#548bda}.chartbox{height:240px;position:relative;margin-top:4px}canvas{width:100%;height:100%;display:block}.tick{border-left:3px solid var(--blue);padding:8px 11px;background:#102741;border-radius:8px;margin-top:11px;font-size:12px}.reason{padding:8px 0;border-bottom:1px solid #26364e;font-size:13px}.reason:last-child{border-bottom:0}.reason b{float:right;font-variant-numeric:tabular-nums}.info{font-size:12px;color:var(--muted);margin-top:10px}.foot{max-width:1040px;margin:20px auto 50px;color:var(--muted);font-size:12px;padding:0 17px;line-height:1.6}.hidden{display:none!important}.log{width:100%;border-collapse:collapse;font-size:12px}.log th{text-align:left;font-size:11px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);padding:8px 5px}.log td{padding:9px 5px;border-bottom:1px solid #26364e;white-space:nowrap}.tablewrap{overflow-x:auto}code{background:#0a1525;padding:2px 4px;border-radius:3px;color:#a9dbff}.divider{height:1px;background:var(--border);margin:15px 0}.sr-only{position:absolute;clip:rect(0,0,0,0);height:1px;width:1px;overflow:hidden}.nowrap{white-space:nowrap}.shot-zone{border:1.5px dashed #547bb0;border-radius:13px;padding:14px;background:#0d2037;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:85px;gap:8px;text-align:center}.shot-zone:focus{outline:2px solid var(--blue)}.shot-zone input{display:none}.shotpreview{margin:12px 0 8px;max-width:100%;border:1px solid #3e5370;border-radius:9px;overflow:hidden;background:#080c13}.shotpreview canvas{display:block;max-width:100%;max-height:410px;width:auto;height:auto;margin:auto;touch-action:none;cursor:crosshair}.shotgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:11px 0}.shotgrid div{background:#0b1729;border:1px solid #23354d;border-radius:10px;padding:8px}.shotgrid strong{font-size:15px;display:block}.shot-info{color:#ffd59e;font-size:12px}.shot-controls{display:flex;gap:8px;flex-wrap:wrap;margin:9px 0}.shot-controls .btn{flex:1;min-width:125px}.shot-zone button{width:auto}.checkline{display:flex;gap:7px;align-items:center;font-size:12px;color:#c3d4e9}.checkline input{width:auto;accent-color:#77b5ff}
+@media(max-width:680px){header{padding-top:13px}.main,.side,.half{grid-column:span 12}.card{padding:14px}.signal{font-size:75px}.chartbox{height:190px}.stats{gap:5px}.stat{padding:8px}.brand{font-size:17px}.badge{font-size:10px}.controls>*{flex-grow:1}.small{font-size:11px}}@media(max-width:350px){.signal{font-size:62px}.stats{grid-template-columns:1fr 1fr}.brand{font-size:15px}}
+</style>
+</head>
+<body>
+<header><div><div class="brand">⚡ Smart <span>Next Candle</span> Bot</div><div class="sub">V1.1 · Screenshot + 1-Minute analysis · Demo only</div></div><span class="badge" id="connection">OFFLINE</span></header>
+<div class="wrap">
+<div class="grid">
+<section class="card wide">
+  <div class="mode-tabs"><button class="tab active" id="shotTab" type="button">📷 Binomo Screenshot</button><button class="tab" id="binanceTab" type="button">Live Binance</button><button class="tab" id="customTab" type="button">Manual OTC</button></div>
+  <div id="shotControls">
+   <div class="label">BINOMO CHART SCREENSHOT · 1-MINUTE VIEW</div>
+   <p class="info">Choose a screenshot, or paste one directly. Image is analyzed locally on this device; no AI cloud or Binomo live connection.</p>
+   <div class="shot-zone" id="dropZone"><div class="row" style="justify-content:center"><label class="btn primary" for="shotFile">Upload Binomo Screenshot</label><input id="shotFile" type="file" accept="image/png,image/jpeg,image/webp,image/*"></div><span class="small">Choose from Photos / Files or drag a screenshot here</span></div>
+   <div class="shot-controls"><button class="btn" id="pasteScreenshot" type="button">📋 Paste Screenshot</button><button class="btn secondary" id="analyzeShot" type="button" disabled>Analyze Again</button><button class="btn secondary" id="resetCrop" type="button" disabled>Reset Chart Area</button></div>
+   <div id="pasteZone" class="shot-zone" contenteditable="true" role="textbox" aria-label="Paste image here" spellcheck="false" style="min-height:44px">iPhone Chrome: long-press here and choose Paste</div>
+   <div id="shotPreview" class="shotpreview hidden"><canvas id="shotCanvas" aria-label="Screenshot with selected chart area; drag to select candle region"></canvas></div>
+   <div class="row" style="margin:8px 0"><label class="checkline"><input type="checkbox" id="movingLast" checked> Rightmost visible candle is still moving</label></div>
+   <div class="shotgrid"><div><span class="small">COLORED CANDLES DETECTED</span><strong id="detectedCandles">—</strong></div><div><span class="small">RIGHTMOST CANDLE</span><strong id="shotLast">—</strong></div></div>
+   <div class="shot-info" id="shotStatus" role="status" aria-live="polite">No screenshot selected. For best results, use an uncropped 1m Binomo chart with visible red and green candles.</div>
+   <p class="info">Drag a box around the candle chart to correct detection. Colored detection is approximate; screenshot cannot supply live ticks, exact OHLC or a verified clock. Refresh with a NEW screenshot to update the signal.</p>
+  </div>
+  <div id="binanceControls" class="controls hidden"><label class="field"><span>LIVE SYMBOL (BINANCE SPOT)</span><select id="symbol"><option>BTCUSDT</option><option>ETHUSDT</option><option>SOLUSDT</option><option>BNBUSDT</option><option>XRPUSDT</option><option>DOGEUSDT</option><option>ADAUSDT</option><option>AVAXUSDT</option><option>LTCUSDT</option><option>TRXUSDT</option></select></label><button class="btn primary" id="connect" type="button">Connect Live</button><button class="btn secondary" id="disconnect" type="button">Disconnect</button></div>
+  <div id="customControls" class="hidden">
+  <div class="row"><span class="pill">NO AUTO BINOMO FEED</span><span class="small">Use genuine Binomo 1m OHLC data, never Binance prices for OTC</span></div>
+  <p class="info">Paste at least 30 completed candles (oldest → newest), with <code>time,open,high,low,close,volume</code>. Then add price ticks from the current moving candle.</p>
+  <label class="field"><span>PASTE COMPLETED 1-MIN CANDLES (CSV)</span><textarea id="csv" spellcheck="false" placeholder="2026-11-18T14:01:00Z,100,101,99,100.5,15&#10;2026-11-18T14:02:00Z,100.5,102,100,101.6,18&#10;... (20+ candles)"></textarea></label>
+  <div class="controls" style="margin-top:10px"><button class="btn primary" id="importCsv" type="button">Load Candle Data</button><label class="field"><span>CURRENT LIVE PRICE TICK</span><input id="tickPrice" type="number" step="any" min="0" inputmode="decimal" placeholder="Example: 101.78"></label><button class="btn" id="tickBtn" type="button">Add Price Tick</button></div>
+  </div>
+  <div class="info" id="feedMessage" role="status" aria-live="polite">Select a data source and connect. No brokerage login needed.</div>
+</section>
+<section class="card main" aria-live="polite" aria-atomic="true">
+  <div class="top-line"><div class="label">Next 1m candle forecast</div><span class="pill" id="sourcePill">NO SOURCE</span></div>
+  <div class="signal no" id="signal">NO DATA</div>
+  <div class="description" id="signalDesc">Connect live market candles or load valid Binomo/OTC OHLC candles to begin.</div>
+  <div class="stats">
+    <div class="stat"><span class="small">TARGET CANDLE START</span><strong id="targetTime">—</strong></div>
+    <div class="stat"><span class="small">STRENGTH (NOT PROBABILITY)</span><strong id="strength">—</strong></div>
+    <div class="stat"><span class="small">DATA FRESHNESS</span><strong id="freshness">—</strong></div>
+  </div>
+  <div class="strength-track"><div class="strength-fill" id="strengthFill"></div></div>
+  <div class="description" id="strengthDetail">UP/DOWN is a technical bias, not a guaranteed outcome.</div>
+  <div class="warning" id="dataWarning">Analysis mode only. The app never places trades or accesses your Binomo account.</div>
+</section>
+<section class="card side">
+  <div class="label">Current running candle</div><div class="bigtime time" id="countdown">00:--</div>
+  <div class="small" id="currentRange">Candle forming: —</div>
+  <div class="stats" style="grid-template-columns:1fr 1fr"><div class="stat"><span class="small">LIVE OPEN</span><strong id="runOpen">—</strong></div><div class="stat"><span class="small">LIVE PRICE</span><strong id="runClose">—</strong></div><div class="stat"><span class="small">CURRENT DIRECTION</span><strong id="runDirection">—</strong></div><div class="stat"><span class="small">CANDLE PROGRESS</span><strong id="progress">—</strong></div></div>
+  <div class="tick" id="candleCount">The moving candle will be INCLUDED as a provisional candle. The previous completed candles remain separate.</div>
+  <div class="divider"></div><div class="label">Time zone</div><div class="small" id="clock">Local clock: —</div>
+</section>
+<section class="card main" id="chartSection"><div class="top-line"><div class="sectionhead">1m Candlestick Chart</div><span class="small" id="chartMeta">—</span></div><div class="chartbox"><canvas id="chart" aria-label="Last 30 one-minute candles and forming candle" role="img"></canvas></div><div class="small">Green = up · Pink = down · Rightmost outlined candle = running (not closed).</div></section>
+<section class="card side" id="engineSection"><div class="sectionhead">Signal Engine · Running Candle Included</div><div id="reasons" class="muted">Waiting for sufficient real market data.</div><div class="divider"></div><div class="label">Backtest of historical next candles</div><div class="stats" style="grid-template-columns:1fr 1fr"><div class="stat"><span class="small">DIRECTIONAL MATCH</span><strong id="backtest">—</strong></div><div class="stat"><span class="small">TESTED CANDLES</span><strong id="tested">—</strong></div></div><div class="info">Walk-forward historical check; uses the previous candle's close and earlier data to predict the following candle. Not a real-money win rate.</div></section>
+<section class="card wide" id="journalSection"><div class="top-line"><div class="sectionhead">Automatic Demo Signal Journal</div><button class="btn secondary" id="downloadJournal" type="button">Export CSV</button></div><div class="small">One forecast is recorded near the end of each moving candle, for the <b>next</b> 1m candle. The outcome is checked only after that next candle closes. Results never place trades.</div><div class="tablewrap"><table class="log"><thead><tr><th>Target (local)</th><th>Source</th><th>Signal</th><th>Strength</th><th>Actual candle</th><th>Result</th></tr></thead><tbody id="journalBody"><tr><td colspan="6" class="muted">No forecasts recorded yet.</td></tr></tbody></table></div><div class="row" style="margin-top:12px"><button class="btn danger" id="clearJournal" type="button">Clear Journal</button><span class="small" id="journalStats">0 results</span></div></section>
+</div></div>
+<footer class="foot">⚠️ <b>Important:</b> This signal engine is a transparent rule-based indicator model, not a trained predictive AI. Its UP/DOWN display is a directional estimate only, and 1-minute outcomes are inherently uncertain. No 80% accuracy or profit is promised. <b>Binance Spot live prices do not represent Binomo Crypto IDX or any OTC chart.</b> For Binomo/OTC, use screenshots for approximate visual pattern detection, or enter matching OHLC candles manually. A static screenshot is not a live signal feed. Do not use this app as a basis for real-money binary-options trades.</footer>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id);const fmtTime=t=>t?new Date(t).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',hour12:false}):'—';
+const s={mode:'shot',symbol:'BTCUSDT',closed:[],running:null,ws:null,shouldConnect:false,lastFeed:0,lastMessage:'',generation:0,lastBacktest:null,journal:[],manualLoaded:false,shot:{img:null,filename:'',modified:null,crop:null,bars:[],result:null,loadedAt:0,drag:null}};
+try {const a=JSON.parse(localStorage.getItem('nextCandleJournalV1')||'[]');if(Array.isArray(a))s.journal=a.slice(-300)}catch(_){}
+const save=()=>{try{localStorage.setItem('nextCandleJournalV1',JSON.stringify(s.journal.slice(-300)))}catch(_){}};
+function status(msg,type=''){s.lastMessage=msg;$('feedMessage').textContent=msg;$('connection').textContent=type==='ok'?'LIVE':type==='bad'?'FEED ISSUE':type==='manual'?'MANUAL':type==='image'?'IMAGE':'OFFLINE';$('connection').className='badge '+(type==='ok'?'on':type==='bad'?'bad':'');}
+function asBar(a){return {t:+a[0],o:+a[1],h:+a[2],l:+a[3],c:+a[4],v:+a[5]||0}}
+function valid(b){return b&&Number.isFinite(b.t)&&[b.o,b.h,b.l,b.c].every(v=>Number.isFinite(v)&&v>0)&&b.h>=Math.max(b.o,b.c)&&b.l<=Math.min(b.o,b.c)}
+function putClosed(b){if(!valid(b))return;const i=s.closed.findIndex(x=>x.t===b.t);if(i>=0)s.closed[i]=b;else s.closed.push(b);s.closed.sort((a,b)=>a.t-b.t);if(s.closed.length>300)s.closed=s.closed.slice(-300);s.lastBacktest=null;evaluateJournal()}
+function disconnect(silent=false){s.shouldConnect=false;s.generation++;if(s.ws){try{s.ws.close()}catch(_){}}s.ws=null;if(!silent)status('Disconnected. Select Connect Live to reconnect.');}
+async function connect(){disconnect(true);s.mode='binance';s.symbol=$('symbol').value;s.shouldConnect=true;let generation=s.generation;s.closed=[];s.running=null;s.lastBacktest=null;s.lastFeed=0;status('Loading 1-minute Binance Spot history…');render();
+ try {const url='https://data-api.binance.vision/api/v3/klines?symbol='+encodeURIComponent(s.symbol)+'&interval=1m&limit=200';const response=await fetch(url,{cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status);const data=await response.json();if(!Array.isArray(data))throw Error('Invalid candle history');if(generation!==s.generation||s.mode!=='binance')return;const now=Date.now();for(const r of data){const b=asBar(r);if(!valid(b))continue;if(b.t+60000<=now)putClosed(b);else s.running=b;}status('History loaded; opening real-time 1m WebSocket…');openSocket(generation)}catch(err){if(generation!==s.generation)return;s.shouldConnect=false;status('Unable to load Binance data: '+err.message+'. Check network/region restrictions.','bad');render()}}
+function openSocket(generation){if(!s.shouldConnect||generation!==s.generation||s.mode!=='binance')return;const address='wss://data-stream.binance.vision:443/ws/'+s.symbol.toLowerCase()+'@kline_1m';let ws;try{ws=new WebSocket(address)}catch(err){status('WebSocket unavailable: '+err.message,'bad');return}s.ws=ws;
+ws.onopen=()=>{if(generation!==s.generation)return;status('Live Binance Spot '+s.symbol+' · current 1m candle updates automatically','ok');s.lastFeed=Date.now();render()};
+ws.onmessage=ev=>{if(generation!==s.generation||s.mode!=='binance')return;let m;try{m=JSON.parse(ev.data)}catch(_){return}if(!m||!m.k)return;const k=m.k;const b={t:+k.t,o:+k.o,h:+k.h,l:+k.l,c:+k.c,v:+k.v};if(!valid(b))return;s.lastFeed=Date.now();if(k.x){putClosed(b);if(s.running&&s.running.t<=b.t)s.running=null}else{if(s.running&&s.running.t!==b.t&&s.running.t<b.t){ // A previous bar may have been missed; do not finalize it from incomplete data.
+ s.running=null;}s.running=b;}render()};
+ws.onerror=()=>{if(generation===s.generation)status('Live feed error; reconnection may be needed.','bad')};
+ws.onclose=()=>{if(generation!==s.generation)return;s.ws=null;if(s.shouldConnect){status('WebSocket disconnected. Retrying connection…','bad');setTimeout(()=>{if(generation===s.generation&&s.shouldConnect)openSocket(generation)},2500)}};}
+function switchMode(mode){disconnect(true);s.mode=mode;s.closed=[];s.running=null;s.lastFeed=0;s.lastBacktest=null;s.manualLoaded=false;$('shotTab').classList.toggle('active',mode==='shot');$('binanceTab').classList.toggle('active',mode==='binance');$('customTab').classList.toggle('active',mode==='manual');$('shotControls').classList.toggle('hidden',mode!=='shot');$('binanceControls').classList.toggle('hidden',mode!=='binance');$('customControls').classList.toggle('hidden',mode!=='manual');for(const id of ['chartSection','engineSection','journalSection'])$(id).classList.toggle('hidden',mode==='shot');status(mode==='shot'?'Screenshot mode · image is NOT live. Choose or paste a Binomo chart.':mode==='manual'?'Manual Binomo/OTC mode. Load genuine OHLC candles and add price ticks.':'Select Connect Live for Binance Spot 1m.',mode==='shot'?'image':'');render()}
+function parseTime(input){const t=input.trim();if(/^\d{13}$/.test(t))return +t;if(/^\d{10}$/.test(t))return +t*1000;if(/^\d{4}-\d{2}-\d{2}/.test(t)){const p=Date.parse(t);return Number.isFinite(p)?p:NaN}return NaN}
+function importCsv(){const raw=$('csv').value.trim().split(/\r?\n/).filter(x=>x.trim());const items=[];let invalidLines=0;for(const line of raw){let cols=line.trim().split(/[\t,;]+/).map(x=>x.trim());if(cols.length<5){invalidLines++;continue}const t=parseTime(cols[0]);const b={t,o:Number(cols[1]),h:Number(cols[2]),l:Number(cols[3]),c:Number(cols[4]),v:Number(cols[5])||0};if(!valid(b)||b.t%60000!==0){invalidLines++;continue}items.push(b)}items.sort((a,b)=>a.t-b.t);const dedup=[...new Map(items.map(b=>[b.t,b])).values()];if(!dedup.length){status('Could not parse candles. Use ISO timestamp or epoch, plus OHLC columns.','bad');return}const nowMin=Math.floor(Date.now()/60000)*60000;s.closed=dedup.filter(b=>b.t<nowMin).slice(-300);s.running=dedup.find(b=>b.t===nowMin)||null;s.lastBacktest=null;s.manualLoaded=true;s.lastFeed=0;status('Loaded '+s.closed.length+' closed 1-minute candles'+(invalidLines?' · '+invalidLines+' rows skipped':'')+'. Add the current price tick.','manual');render()}
+function addTick(){if(s.mode!=='manual')return;const p=Number($('tickPrice').value);if(!(p>0)&&Number.isFinite(p)){status('Enter a valid positive current price.','bad');return}if(!Number.isFinite(p)||p<=0){status('Enter a positive current price.','bad');return}const minute=Math.floor(Date.now()/60000)*60000;if(!s.running||s.running.t!==minute){if(s.running&&s.running.t<minute){ // Do not automatically claim this previous forming candle was fully observed.
+ }s.running={t:minute,o:p,h:p,l:p,c:p,v:0}}else{const b=s.running;b.h=Math.max(b.h,p);b.l=Math.min(b.l,p);b.c=p} s.lastFeed=Date.now();status('Manual '+fmtTime(minute)+' candle updated. Price ticks must be supplied continuously for a representative moving candle.','manual');render()}
+const ema=(xs,n)=>{const k=2/(n+1);let e=xs[0];for(let i=1;i<xs.length;i++)e=xs[i]*k+e*(1-k);return e};
+const rsi=xs=>{if(xs.length<15)return 50;let up=0,down=0;for(let i=xs.length-14;i<xs.length;i++){const v=xs[i]-xs[i-1];up+=Math.max(0,v);down+=Math.max(0,-v)}if(up===0&&down===0)return 50;return down===0?100:100-100/(1+up/down)};
+const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+const atr=bars=>{const arr=bars.slice(-15);if(arr.length<3)return 0;let sum=0;for(let i=1;i<arr.length;i++)sum+=Math.max(arr[i].h-arr[i].l,Math.abs(arr[i].h-arr[i-1].c),Math.abs(arr[i].l-arr[i-1].c));return sum/(arr.length-1)};
+function analysis(closed,running){if(closed.length<30||!running||!valid(running))return null;const recent=closed.slice(-100);const all=[...recent,running];const closes=all.map(b=>b.c);const price=running.c;const vol=atr(recent)||price*.001;const trend=clamp((ema(closes,9)-ema(closes,21))/vol*1.2,-1,1);
+const rsiValue=rsi(closes);const momentum=clamp((price-recent.at(-4).c)/Math.max(vol*2.2,1e-10),-1,1);const rsiPart=clamp((rsiValue-50)/18,-1,1);
+const fast=ema(closes,12),slow=ema(closes,26);const macds=[];for(let i=26;i<closes.length;i++)macds.push(ema(closes.slice(0,i+1),12)-ema(closes.slice(0,i+1),26));const macdHist=fast-slow-ema(macds.slice(-30),9);const macdPart=clamp(macdHist/Math.max(vol*.5,1e-10),-1,1);
+const body=clamp((running.c-running.o)/Math.max(vol*.85,1e-10),-1,1);const location=(running.h>running.l)?clamp((running.c-running.l)/(running.h-running.l)*2-1,-1,1):0;
+const progress=clamp((Date.now()-running.t)/60000,0,1);const movingWeight=.32+progress*.68;const parts=[{name:'EMA 9 / 21 trend',n:trend,w:25},{name:'RSI (14)',n:rsiPart,w:16},{name:'MACD momentum',n:macdPart,w:17},{name:'Recent closed-candle momentum',n:momentum,w:16},{name:'Moving candle body',n:body*movingWeight,w:19},{name:'Moving candle close position',n:location*movingWeight,w:7}];const score=parts.reduce((a,b)=>a+b.n*b.w,0);let fallback=price-recent.at(-1).c;if(score===0)fallback=recent.at(-1).c-recent.at(-2).c;const dir=score>0?'UP':score<0?'DOWN':fallback>0?'UP':fallback<0?'DOWN':null;
+return {dir,score,strength:Math.round(clamp(Math.abs(score)*1.25,0,100)),parts,progress,rsi:rsiValue,atr:vol}}
+function backtest(){if(s.lastBacktest)return s.lastBacktest;const candles=s.closed;let match=0,total=0;for(let i=Math.max(30,candles.length-81);i<candles.length-1;i++){const a=analysis(candles.slice(0,i),candles[i]);const c=candles[i+1];if(!a||!a.dir||c.o===c.c)continue;total++;if(a.dir===(c.c>c.o?'UP':'DOWN'))match++}s.lastBacktest={match,total};return s.lastBacktest}
+function sourceName(){return s.mode==='binance'?'BINANCE '+s.symbol:s.mode==='shot'?'BINOMO IMAGE':'MANUAL OTC'}
+function evaluateJournal(){let changed=false;for(const j of s.journal){if(j.result!=='PENDING'||j.source!==sourceName())continue;const actual=s.closed.find(b=>b.t===j.target);if(!actual)continue;j.actual=actual.c>actual.o?'UP':actual.c<actual.o?'DOWN':'DOJI';j.result=j.actual==='DOJI'?'DOJI':j.actual===j.dir?'MATCH':'MISS';changed=true}if(changed){save();renderJournal()}}
+function journalSignal(a){if(!a||!a.dir||!s.running||s.closed.length<30)return;const remain=s.running.t+60000-Date.now();if(remain>10000||remain<0||s.mode==='binance'&&Date.now()-s.lastFeed>5000||s.mode==='manual'&&Date.now()-s.lastFeed>10000)return;const target=s.running.t+60000;const src=sourceName();if(s.journal.some(j=>j.target===target&&j.source===src))return;s.journal.push({target,source:src,dir:a.dir,strength:a.strength,actual:'—',result:'PENDING'});s.journal=s.journal.slice(-300);save();renderJournal()}
+function renderJournal(){const data=s.journal.slice().reverse().slice(0,16);$('journalBody').innerHTML=data.length?data.map(j=>'<tr><td>'+fmtTime(j.target)+'</td><td>'+escapeHtml(j.source)+'</td><td class="'+(j.dir==='UP'?'up':'down')+'"><b>'+j.dir+'</b></td><td>'+j.strength+'/100</td><td>'+j.actual+'</td><td>'+j.result+'</td></tr>').join(''):'<tr><td colspan="6" class="muted">No forecasts recorded yet.</td></tr>';const completed=s.journal.filter(j=>j.result!=='PENDING'),m=completed.filter(j=>j.result==='MATCH').length,nonDoji=completed.filter(j=>j.result!=='DOJI').length;$('journalStats').textContent=completed.length+' completed; '+m+' matches of '+nonDoji+' non-doji candles (not real trades)'}
+function escapeHtml(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function priceFmt(v){if(!Number.isFinite(v))return '—';return v>=100? v.toLocaleString([],{maximumFractionDigits:2}):v>=1?v.toFixed(4):v.toFixed(6)}
+function render(){if(s.mode==='shot'){renderScreenshot();return;}const now=Date.now();$('clock').textContent='Device local time: '+new Date().toLocaleTimeString();$('sourcePill').textContent=sourceName();const run=s.running;const active=run&&run.t+60000>now&&run.t<=now+2000?run:null;const rem=active?Math.max(0,Math.ceil((active.t+60000-now)/1000)):null;$('countdown').textContent=rem===null?'00:--':'00:'+String(rem%60).padStart(2,'0');$('currentRange').textContent=active?'Forming: '+fmtTime(active.t)+'–'+fmtTime(active.t+60000):'No current moving candle received';$('runOpen').textContent=active?priceFmt(active.o):'—';$('runClose').textContent=active?priceFmt(active.c):'—';$('runDirection').textContent=active?(active.c>active.o?'UP ↑':active.c<active.o?'DOWN ↓':'FLAT'):'—';$('runDirection').className=active?(active.c>active.o?'up':active.c<active.o?'down':''):'muted';const fraction=active?Math.round(clamp((now-active.t)/60000,0,1)*100):null;$('progress').textContent=fraction===null?'—':fraction+'%';$('candleCount').textContent='Analysis: '+s.closed.length+' completed candles + '+(active?'1 MOVING candle (provisional)':'0 moving candles')+'. Moving candle is INCLUDED in this next-candle signal.';
+const bt=s.closed.length>30?backtest():{total:0,match:0};$('backtest').textContent=bt.total?Math.round(bt.match/bt.total*100)+'%':'—';$('tested').textContent=bt.total||'—';let a=analysis(s.closed,active);const fresh=s.lastFeed?Math.max(0,Math.round((now-s.lastFeed)/1000)):null;$('freshness').textContent=fresh===null?'—':fresh+'s ago';const stale=active&&fresh!==null&&fresh>7;
+if(a&&a.dir){$('signal').textContent=a.dir==='UP'?'↑ UP':'↓ DOWN';$('signal').className='signal '+(a.dir==='UP'?'up':'down');$('signalDesc').textContent=(a.dir==='UP'?'Bullish':'Bearish')+' technical bias for the NEXT 1-minute candle'+(stale?' · STALE DATA':'')+'. Not guaranteed.';$('strength').textContent=a.strength+'/100';$('strengthFill').style.width=a.strength+'%';$('strengthFill').style.background=a.dir==='UP'?'var(--green)':'var(--red)';$('targetTime').textContent=fmtTime(active.t+60000);$('strengthDetail').textContent=a.strength<25?'Weak / conflicting evidence — directional guess is unreliable.':a.strength<50?'Mixed evidence — moderate uncertainty.':'Indicators lean together, but still not a win probability.';$('dataWarning').textContent=stale?'PRICE DATA STALE: last update '+fresh+' seconds ago. The displayed direction may not reflect the current candle.':s.mode==='manual'?'Manual-price mode: the direction is only as current and complete as your supplied ticks.':'Live prices are from Binance Spot only. NOT a Binomo Crypto IDX / OTC signal.';$('reasons').innerHTML=a.parts.map(p=>'<div class="reason">'+p.name+' <b class="'+(p.n>=0?'up':'down')+'">'+(p.n>0?'+':'')+(p.n*100).toFixed(0)+'</b></div>').join('')+'<div class="info">RSI '+a.rsi.toFixed(1)+' · ATR '+priceFmt(a.atr)+' · Score '+a.score.toFixed(1)+'<br/>Moving candle contribution changes with candle progress.</div>';journalSignal(a)}else{$('signal').textContent=s.closed.length<30?'NEED 30+':'NO LIVE CANDLE';$('signal').className='signal no';$('signalDesc').textContent=s.closed.length<30?'At least 30 completed 1-minute candles plus the current moving candle are required.':'Need an actively updating, valid moving candle to predict the following minute.';$('strength').textContent='—';$('strengthFill').style.width='0';$('targetTime').textContent=active?fmtTime(active.t+60000):'—';$('strengthDetail').textContent='No fabricated UP/DOWN when valid market data is missing.';$('reasons').textContent='Waiting for '+(s.closed.length<30?'30 completed candles':'a running candle')+'.';$('dataWarning').textContent='No valid signal without sufficient matching price data. Demo analysis only.'}
+$('chartMeta').textContent=s.closed.length+' closed + '+(active?1:0)+' running';drawChart(active)}
+function drawChart(active){const canvas=$('chart'),rect=canvas.getBoundingClientRect();if(rect.width<10||rect.height<10)return;const dpr=Math.min(2,window.devicePixelRatio||1);canvas.width=Math.round(rect.width*dpr);canvas.height=Math.round(rect.height*dpr);const c=canvas.getContext('2d');c.scale(dpr,dpr);const W=rect.width,H=rect.height,pad={l:8,r:55,t:13,b:24};c.clearRect(0,0,W,H);const bars=[...s.closed.slice(-29),...(active?[active]:[])];if(!bars.length){c.fillStyle='#93a7bf';c.font='12px sans-serif';c.fillText('No candle data',14,H/2);return}const highs=bars.map(b=>b.h),lows=bars.map(b=>b.l);let hi=Math.max(...highs),lo=Math.min(...lows);let span=hi-lo||hi*.002||1;hi+=span*.1;lo-=span*.1;span=hi-lo;const availW=W-pad.l-pad.r,availH=H-pad.t-pad.b;const y=v=>pad.t+(hi-v)/span*availH;const bw=availW/bars.length;for(let g=0;g<=4;g++){const yy=pad.t+g/4*availH;c.strokeStyle='#22344c';c.lineWidth=1;c.beginPath();c.moveTo(pad.l,yy);c.lineTo(W-pad.r+5,yy);c.stroke();c.fillStyle='#8da0bc';c.font='10px system-ui';c.textAlign='left';c.fillText(priceFmt(hi-g/4*span),W-pad.r+8,yy+3)}bars.forEach((b,i)=>{const x=pad.l+i*bw+bw/2;const color=b.c>=b.o?'#16d39a':'#ff5d7b';c.strokeStyle=color;c.fillStyle=color;c.lineWidth=1.3;c.beginPath();c.moveTo(x,y(b.h));c.lineTo(x,y(b.l));c.stroke();const top=Math.min(y(b.o),y(b.c)),height=Math.max(1.5,Math.abs(y(b.c)-y(b.o)));const width=Math.max(2.5,Math.min(13,bw*.68));if(active&&i===bars.length-1){c.strokeStyle='#fff';c.strokeRect(x-width/2-2,top-2,width+4,height+4)}c.fillRect(x-width/2,top,width,height)});c.font='10px system-ui';c.fillStyle='#8da0bc';c.textAlign='center';[0,Math.floor(bars.length/2),bars.length-1].forEach(i=>{if(bars[i])c.fillText(fmtTime(bars[i].t),pad.l+i*bw+bw/2,H-5)})}
+// Binomo screenshot-only image analyzer. Deliberately separate from real OHLC engine.
+function isCandleColor(r,g,b){
+  if(g>90&&g>r*1.32&&g>b*.83&&(g-r)>38)return 1;
+  if(r>105&&r>g*1.31&&r>b*.97&&(r-g)>38)return -1;
+  return 0;
+}
+function defaultCrop(){const img=s.shot.img;if(!img)return null;const portrait=img.naturalHeight>img.naturalWidth*1.15;return portrait?{x:.08,y:.24,w:.84,h:.48}:{x:.10,y:.15,w:.82,h:.68};}
+async function loadShotFile(file){
+ if(!file||!file.type.startsWith('image/')){shotMessage('Select a PNG, JPG, or WebP image.');return;}
+ if(file.size>18*1024*1024){shotMessage('Image is too large (maximum 18 MB).');return;}
+ const url=URL.createObjectURL(file);let img=new Image();
+ try{await new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=()=>reject(Error('Cannot decode screenshot'));img.src=url;});}
+ catch(err){shotMessage('Could not read image: '+err.message);URL.revokeObjectURL(url);return;}
+ URL.revokeObjectURL(url);if(s.mode!=='shot')switchMode('shot');
+ s.shot.img=img;s.shot.filename=file.name||'pasted screenshot';s.shot.modified=file.lastModified||null;s.shot.loadedAt=Date.now();s.shot.crop=defaultCrop();
+ $('shotPreview').classList.remove('hidden');$('analyzeShot').disabled=false;$('resetCrop').disabled=false;analyzeScreenshot();
+}
+function shotMessage(message){$('shotStatus').textContent=message;status('Binomo screenshot · '+message,'image');}
+function analyzeScreenshot(){
+ const sh=s.shot;if(!sh.img||!sh.crop)return;
+ const img=sh.img,src=sh.crop;
+ const sx=Math.max(0,Math.floor(src.x*img.naturalWidth)),sy=Math.max(0,Math.floor(src.y*img.naturalHeight));
+ const sw=Math.min(img.naturalWidth-sx,Math.max(10,Math.floor(src.w*img.naturalWidth)));
+ const shh=Math.min(img.naturalHeight-sy,Math.max(10,Math.floor(src.h*img.naturalHeight)));
+ const scale=Math.min(1,950/sw,630/shh),W=Math.max(25,Math.round(sw*scale)),H=Math.max(25,Math.round(shh*scale));
+ const c=document.createElement('canvas');c.width=W;c.height=H;const ctx=c.getContext('2d',{willReadFrequently:true});
+ ctx.drawImage(img,sx,sy,sw,shh,0,0,W,H);const data=ctx.getImageData(0,0,W,H).data;
+ const columns=[];
+ for(let x=0;x<W;x++){
+  let green=0,red=0,greenRun=0,redRun=0,maxGreen=0,maxRed=0;
+  let redT=H,redB=0,greenT=H,greenB=0;
+  for(let y=0;y<H;y++){
+   const k=(y*W+x)*4,kind=isCandleColor(data[k],data[k+1],data[k+2]);
+   if(kind===1){green++;greenRun++;redRun=0;maxGreen=Math.max(maxGreen,greenRun);greenT=Math.min(greenT,y);greenB=Math.max(greenB,y)}
+   else if(kind===-1){red++;redRun++;greenRun=0;maxRed=Math.max(maxRed,redRun);redT=Math.min(redT,y);redB=Math.max(redB,y)}
+   else{greenRun=0;redRun=0;}
+  }
+  let side=0;if(maxGreen>=3&&green>=red*1.12)side=1;else if(maxRed>=3&&red>=green*1.12)side=-1;
+  columns.push({x,side,top:side===1?greenT:redT,bot:side===1?greenB:redB,pts:side===1?green:red});
+ }
+ let groups=[],current=null,last=0;
+ for(const v of columns){if(!v.side)continue;
+  if(!current||current.side!==v.side||v.x-last>3){if(current)groups.push(current);current={side:v.side,cols:[]};}
+  current.cols.push(v);last=v.x;
+ }if(current)groups.push(current);
+ let bars=[];
+ for(const group of groups){
+  const cols=group.cols,x0=cols[0].x,x1=cols.at(-1).x,width=x1-x0+1;
+  if(width<2||width>Math.max(22,W*.075))continue;
+  let tops=cols.map(v=>v.top).sort((a,b)=>a-b),bots=cols.map(v=>v.bot).sort((a,b)=>a-b);
+  const top=tops[Math.floor(tops.length/2)],bot=bots[Math.floor(bots.length/2)];
+  if(bot-top<3||bot-top>H*.72)continue;
+  const pixels=cols.reduce((sum,v)=>sum+v.pts,0);
+  if(pixels<Math.max(12,width*3.2))continue;
+  bars.push({x:(x0+x1)/2,yTop:top,yBot:bot,side:group.side,height:bot-top,width,pixels});
+ }
+ // Keep obvious candlestick-width groups; reject tiny UI icons/price markings on the left or right of chart.
+ if(bars.length>6){const widths=bars.map(b=>b.width).sort((a,b)=>a-b);const med=widths[Math.floor(widths.length/2)];bars=bars.filter(b=>b.width>=Math.max(2,med*.32)&&b.width<=Math.max(20,med*3.2));}
+ bars=bars.sort((a,b)=>a.x-b.x);
+ // The forecast only uses image-derived visual geometry. Never call OHLC analytics with synthetic values.
+ const recent=bars.slice(-Math.min(10,bars.length));let result=null;
+ if(recent.length>=6){
+  const last=recent.at(-1),closed=recent.slice(0,-1),lastMoving=$('movingLast').checked;
+  const mean=recent.reduce((a,b)=>a+b.height,0)/recent.length;
+  const scaleH=Math.max(mean,4);
+  const momentum=recent.reduce((sum,b,i)=>sum+b.side*Math.min(2,b.height/scaleH)*(.6+i/recent.length),0)/recent.length;
+  const priceClose=b=>H-(b.side>0?b.yTop:b.yBot);
+  const closeTrend=(priceClose(last)-priceClose(recent[0]))/(Math.max(scaleH*3,4));
+  const runBody=lastMoving?last.side*Math.min(1.8,last.height/scaleH):0;
+  const prior=closed.slice(-5);
+  const priorBias=prior.reduce((a,b)=>a+b.side,0)/Math.max(1,prior.length);
+  const score=clamp(.42*clamp(momentum,-1,1)+.30*clamp(closeTrend,-1,1)+.20*runBody+.08*priorBias,-1,1);
+  result={dir:score>=0?'UP':'DOWN',score,strength:Math.round(Math.abs(score)*100),detected:bars.length,last,lastMoving,
+    reasons:[{name:'Recent candle colors & body sizes',n:momentum},{name:'Visual price slope',n:closeTrend},{name:'Last '+(lastMoving?'moving':'visible')+' candle body',n:runBody},{name:'Previous 5 candle colors',n:priorBias}]};
+ }
+ sh.bars=bars;sh.result=result;drawScreenshot();renderScreenshot();
+ $('detectedCandles').textContent=bars.length+' (image estimate)';$('shotLast').textContent=bars.length?(bars.at(-1).side>0?'GREEN ↑':'RED ↓'):'Not detected';
+ const age=sh.modified?Math.round((Date.now()-sh.modified)/60000):null;
+ if(age!==null&&age>5)shotMessage('Screenshot appears '+age+' minutes old. Visual analysis is NOT a current-market prediction.');
+ else shotMessage(result?'Detected '+bars.length+' colored candle shapes. Check outlined chart area and detected candles.':'Detected '+bars.length+' candle shapes (need ≥6). Drag a tighter box around the chart, avoiding toolbar and indicators.');
+}
+function drawScreenshot(){const sh=s.shot;if(!sh.img||!sh.crop||$('shotPreview').classList.contains('hidden'))return;
+ const cnv=$('shotCanvas'),img=sh.img;const width=Math.min(840,img.naturalWidth),height=Math.round(width*img.naturalHeight/img.naturalWidth);
+ cnv.width=width;cnv.height=height;const c=cnv.getContext('2d');c.drawImage(img,0,0,width,height);
+ const box=sh.crop,x=box.x*width,y=box.y*height,w=box.w*width,h=box.h*height;
+ c.fillStyle='rgba(3,9,22,.44)';c.fillRect(0,0,width,y);c.fillRect(0,y,x,h);c.fillRect(x+w,y,width-x-w,h);c.fillRect(0,y+h,width,height-y-h);
+ c.strokeStyle='#8cc6ff';c.lineWidth=Math.max(2,width*.003);c.setLineDash([8,4]);c.strokeRect(x,y,w,h);c.setLineDash([]);
+ const maxX=Math.max(1,Math.floor(img.naturalWidth*box.w)),maxY=Math.max(1,Math.floor(img.naturalHeight*box.h));
+ const sampleScale=Math.min(1,950/maxX,630/maxY);
+ for(const b of sh.bars){let bx=x+b.x/sampleScale*(w/maxX),by=y+b.yTop/sampleScale*(h/maxY),bh=b.height/sampleScale*(h/maxY);
+  c.strokeStyle=b.side>0?'#a8ffce':'#ff9aad';c.lineWidth=Math.max(1,width*.002);c.strokeRect(bx-b.width/(2*sampleScale)*(w/maxX),by,b.width/sampleScale*(w/maxX),Math.max(2,bh));}
+ c.font='bold '+Math.max(11,Math.round(width*.016))+'px system-ui';c.fillStyle='#d4eeff';c.fillText('SELECT CANDLE CHART AREA · DRAG TO ADJUST',Math.max(7,x+7),Math.max(16,y+18));
+}
+function renderScreenshot(){
+ const sh=s.shot,res=sh.result,ready=!!sh.img;
+ $('sourcePill').textContent='BINOMO IMAGE · NOT LIVE';$('freshness').textContent=ready?'Static image':'—';
+ $('countdown').textContent='--:--';$('currentRange').textContent='Screenshot does not contain verified live ticks or candle time';
+ $('runOpen').textContent='Image only';$('runClose').textContent='Image only';
+ $('runDirection').textContent=res?(res.last.side>0?'GREEN ↑':'RED ↓'):'—';$('runDirection').className=res?(res.last.side>0?'up':'down'):'muted';
+ $('progress').textContent='Unknown';$('clock').textContent='Device local time: '+new Date().toLocaleTimeString();
+ $('candleCount').textContent=ready?'Screenshot: '+sh.bars.length+' colored shapes; rightmost candle '+($('movingLast').checked?'ASSUMED MOVING':'not verified as moving')+'. Upload again to reflect movement.':'No Binomo screenshot provided yet.';
+ $('targetTime').textContent='Unknown';
+ if(res){
+  $('signal').textContent=res.dir==='UP'?'↑ UP':'↓ DOWN';$('signal').className='signal '+(res.dir==='UP'?'up':'down');
+  $('signalDesc').textContent='SCREENSHOT-ONLY '+(res.dir==='UP'?'bullish':'bearish')+' visual bias for the candle after the pictured last candle. Not a live signal or reliable trade prediction.';
+  $('strength').textContent=res.strength+'/100';$('strengthFill').style.width=res.strength+'%';$('strengthFill').style.background=res.dir==='UP'?'var(--green)':'var(--red)';
+  $('strengthDetail').textContent='Approximate visual bias strength, NOT accuracy or win probability.';
+  $('dataWarning').textContent='STATIC SCREENSHOT: actual capture time, live price, indicators and exact OHLC are unverified. Colored-pixel detection can mistake labels or price lines for candles; check crop. NOT for placing money trades.';
+ }else{
+  $('signal').textContent=ready?'CHECK CROP':'ADD IMAGE';$('signal').className='signal no';
+  $('signalDesc').textContent=ready?'Not enough reliable candle shapes detected for a visual UP/DOWN estimate. Drag the selected chart area.':'Upload or paste a Binomo 1-minute screenshot above.';
+  $('strength').textContent='—';$('strengthFill').style.width='0';$('strengthDetail').textContent='Color/shape analysis needs at least six visible candles.';
+  $('dataWarning').textContent='A screenshot is not a live feed. No forecast should be inferred from a missing or unrecognized chart.';
+ }
+}
+$('shotFile').addEventListener('change',e=>{const f=e.target.files?.[0];if(f)loadShotFile(f);e.target.value='';});
+$('analyzeShot').addEventListener('click',analyzeScreenshot);
+$('movingLast').addEventListener('change',()=>{if(s.shot.img)analyzeScreenshot();else renderScreenshot();});
+$('resetCrop').addEventListener('click',()=>{s.shot.crop=defaultCrop();analyzeScreenshot();});
+$('dropZone').addEventListener('dragover',e=>{e.preventDefault();});
+$('dropZone').addEventListener('drop',e=>{e.preventDefault();const file=[...(e.dataTransfer?.files||[])].find(f=>f.type.startsWith('image/'));if(file)loadShotFile(file);});
+function acceptPaste(e){const items=e.clipboardData?.items||[];
+ for(const item of items){if(item.kind==='file'&&item.type.startsWith('image/')){e.preventDefault();loadShotFile(item.getAsFile());$('pasteZone').textContent='iPhone Chrome: long-press here and choose Paste';return true;}}
+ return false;
+}
+window.addEventListener('paste',acceptPaste);
+$('pasteScreenshot').addEventListener('click',async()=>{if(!navigator.clipboard?.read){shotMessage('Clipboard image access unavailable here. Use Upload or long-press the Paste box.');$('pasteZone').focus();return;}
+ try{const content=await navigator.clipboard.read();for(const item of content){for(const type of item.types){if(type.startsWith('image/')){const blob=await item.getType(type);await loadShotFile(new File([blob],'pasted.png',{type}));return;}}}shotMessage('No image found in clipboard. Use Upload Screenshot.');}
+ catch(e){shotMessage('Clipboard denied. Use Upload Screenshot or long-press Paste box.');$('pasteZone').focus();}
+});
+$('pasteZone').addEventListener('input',()=>{if($('pasteZone').querySelector('img')){$('pasteZone').textContent='If image was not loaded, use Upload Screenshot.';}});
+$('shotCanvas').addEventListener('pointerdown',e=>{const r=e.currentTarget.getBoundingClientRect();s.shot.drag={x:clamp((e.clientX-r.left)/r.width,0,1),y:clamp((e.clientY-r.top)/r.height,0,1)};e.currentTarget.setPointerCapture(e.pointerId)});
+$('shotCanvas').addEventListener('pointerup',e=>{if(!s.shot.drag)return;const r=e.currentTarget.getBoundingClientRect(),ex=clamp((e.clientX-r.left)/r.width,0,1),ey=clamp((e.clientY-r.top)/r.height,0,1),d=s.shot.drag;s.shot.drag=null;
+ const box={x:Math.min(d.x,ex),y:Math.min(d.y,ey),w:Math.abs(d.x-ex),h:Math.abs(d.y-ey)};
+ if(box.w>.09&&box.h>.08){s.shot.crop=box;analyzeScreenshot();}});
+$('shotCanvas').addEventListener('pointercancel',()=>{s.shot.drag=null;});
+
+$('shotTab').addEventListener('click',()=>switchMode('shot'));$('connect').addEventListener('click',connect);$('disconnect').addEventListener('click',()=>{disconnect();render()});$('symbol').addEventListener('change',()=>{s.symbol=$('symbol').value;connect()});$('binanceTab').addEventListener('click',()=>switchMode('binance'));$('customTab').addEventListener('click',()=>switchMode('manual'));$('importCsv').addEventListener('click',importCsv);$('tickBtn').addEventListener('click',addTick);$('tickPrice').addEventListener('keydown',e=>{if(e.key==='Enter')addTick()});$('clearJournal').addEventListener('click',()=>{if(confirm('Delete locally stored demo journal entries?')){s.journal=[];save();renderJournal()}});
+$('downloadJournal').addEventListener('click',()=>{const rows=[['target_iso','source','signal','strength_not_probability','actual_candle','result'],...s.journal.map(j=>[new Date(j.target).toISOString(),j.source,j.dir,j.strength,j.actual,j.result])];const csv=rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='next_candle_demo_journal.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)});
+window.addEventListener('resize',()=>{if(s.mode==='shot')drawScreenshot();else drawChart(s.running)});window.addEventListener('beforeunload',()=>disconnect(true));setInterval(()=>{render();if(s.mode==='binance'&&s.shouldConnect&&s.lastFeed&&Date.now()-s.lastFeed>20000&&s.ws&&s.ws.readyState===WebSocket.OPEN){status('No price updates for 20+ seconds; reconnecting…','bad');try{s.ws.close()}catch(_){}}},1000);renderJournal();switchMode('shot');
+})();
+</script>
+</body>
+</html>
