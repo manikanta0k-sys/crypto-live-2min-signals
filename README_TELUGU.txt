@@ -1,34 +1,13 @@
-CandlePattern PRO V1.0 — Candlestick Screenshot Dashboard
-=======================================================
+Crypto IDX Candle Fusion — DEMO ONLY
 
-Source reference: https://www.scribd.com/document/651377054/Candlestick-Chart-Patterns
-The page claims 35 patterns; its contents name 32. This app includes those 32 in the reference library.
-
-Start on a Windows/Mac computer:
-1. ZIP Extract cheyyandi.
-2. index.html ni Chrome lo open cheyyandi.
-3. Binomo screenshot Paste (Ctrl+V) or Upload Image click cheyyandi.
-4. Chart lo candles unna area matrame drag chesi select cheyyandi (UP/DOWN buttons exclude).
-5. Screenshot/chart capture time ni verify cheyyandi. Rightmost candle running aithe "Exclude the rightmost candle" checked undali.
-6. Analyze Completed Candles click cheyyandi.
-7. Pattern name, direction bias, quality, reconstructed candles and timing chudandi.
-
-On iPhone Chrome:
-- If you can open the downloaded HTML locally, use Upload Image, or long-press paste field.
-- If Chrome cannot open a local HTML file, publish index.html using your GitHub Pages repository. A public hosted link is not included in this package.
-
-Extra verification:
-- OHLC Verification tab supports CSV rows in oldest-to-newest order, each row: time,open,high,low,close
-- Never mix Binomo Crypto IDX and Binance prices: market input needs to match source.
-- Rightmost candle is excluded by default; if all CSV rows are already completed candles, uncheck it.
-
-Limitations:
-- No live chart connection. No candlestick OCR or accurate screenshot timestamp extraction.
-- Screenshot scanner reads red and green pixels; it may fail with changed themes, overlays, indicators, zoom settings or cropped candles.
-- Visual quality is not win rate, probability or trading confidence.
-- 'EST. UP' / 'EST. DOWN' is only pattern-based visual bias; not a trade recommendation or prediction.
-- Time is user-entered; a demo pattern assessment needs >=20 completed candles, adequate quality and manually verified recent time.
-- Demo journal tracks a 4 minute cooldown; it does not place trades. Browser local storage holds journal.
-- Never use screenshot-based estimates as a reliable basis for 1-minute real-money trades.
-
-Created as a self-contained HTML, CSS and JavaScript app; no external APIs.
+1. ZIP extract cheyyandi. index.html ni Chrome lo open cheyyandi.
+2. Binomo Crypto IDX 1m chart screenshot copy chesi Paste screenshot click cheyyandi; iPhone Chrome lo Paste permission unte pani chesthundi. Leda Upload click cheyyandi.
+3. Screenshot time ni screen print tho verify chesi checkbox tick chesi Analyze & Close.
+4. Chart lo rightmost candle running ani conservative ga exclude chesthundi. 20+ visible closed candles undali.
+5. Result UP/DOWN/WAIT, time window and next minute countdown main screen lo matrame kanipisthai. Details settings lo hide.
+6. Auto Binomo live connection ledu. Screenshot is a still image. Pixel-based reconstructed OHLC, patterns and indicator results are approximate and unverified. Device timer is not broker synced. By default the dashboard uses the GMT+5 time shown in the supplied Binomo screenshot, not the IST phone time; change this in settings if necessary.
+7. Time expired, data inadequate, or conflicting signals ayithe WAIT. Actual win chance or 8/10 accuracy guarantee ledu. Real-money trading kosam vadakandi.
+8. 18 original indicators from earlier project plus 4 advanced: Aroon, Donchian, Choppiness, Keltner. 32 candlestick patterns + Smart Candle Assistant style filters.
+9. Local demo journal optional; data browser lo save avuthundi.
+10. User screenshot chart displays GMT+5, which differs from India phone GMT+5:30 by 30 minutes. Default screenshot time zone set GMT+5; switch it in Settings if your Binomo chart has changed.
+11. `index.html` pakkane `reference-chart.webp` undali. GitHub Pages upload ki rendini same folder lo upload cheyyandi.
