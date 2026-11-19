@@ -1,13 +1,11 @@
-Crypto IDX Candle Fusion — DEMO ONLY
+Crypto IDX Candle Fusion V2.1 — Demo Only
 
-1. ZIP extract cheyyandi. index.html ni Chrome lo open cheyyandi.
-2. Binomo Crypto IDX 1m chart screenshot copy chesi Paste screenshot click cheyyandi; iPhone Chrome lo Paste permission unte pani chesthundi. Leda Upload click cheyyandi.
-3. Screenshot time ni screen print tho verify chesi checkbox tick chesi Analyze & Close.
-4. Chart lo rightmost candle running ani conservative ga exclude chesthundi. 20+ visible closed candles undali.
-5. Result UP/DOWN/WAIT, time window and next minute countdown main screen lo matrame kanipisthai. Details settings lo hide.
-6. Auto Binomo live connection ledu. Screenshot is a still image. Pixel-based reconstructed OHLC, patterns and indicator results are approximate and unverified. Device timer is not broker synced. By default the dashboard uses the GMT+5 time shown in the supplied Binomo screenshot, not the IST phone time; change this in settings if necessary.
-7. Time expired, data inadequate, or conflicting signals ayithe WAIT. Actual win chance or 8/10 accuracy guarantee ledu. Real-money trading kosam vadakandi.
-8. 18 original indicators from earlier project plus 4 advanced: Aroon, Donchian, Choppiness, Keltner. 32 candlestick patterns + Smart Candle Assistant style filters.
-9. Local demo journal optional; data browser lo save avuthundi.
-10. User screenshot chart displays GMT+5, which differs from India phone GMT+5:30 by 30 minutes. Default screenshot time zone set GMT+5; switch it in Settings if your Binomo chart has changed.
-11. `index.html` pakkane `reference-chart.webp` undali. GitHub Pages upload ki rendini same folder lo upload cheyyandi.
+1. Open index.html in iPhone Chrome or computer browser.
+2. Tap Paste Screenshot. Browser permissions permitting, pasted image is analyzed automatically; otherwise choose it through Upload.
+3. No Analyze & Close button. The settings remain hidden on screenshot load.
+4. Large target is INDIA IST (your phone time). Smaller line shows equivalent Binomo GMT+5 time (-30 minutes).
+5. Current moving candle is excluded. A one-time estimate is revealed ONLY when the next minute starts; it expires after 12 seconds. A new screenshot is required each minute.
+6. A screenshot cannot see the moving candle close or provide reliable live prices. The signal is an approximation based on earlier completed candles; do not treat it as real-time verified.
+7. Stale gallery screenshots are blocked when file timestamps reveal they are old. Clipboard screenshots without timestamps use paste receipt time and may still be old; this cannot be verified automatically.
+8. Original 18 indicator and 4 advanced research checks plus candlestick patterns remain.
+9. No automatic trading or live Binomo access. Only demo research.
